@@ -7,6 +7,6 @@ admin.autodiscover()
 urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
     url(r'^$', 'kernel.views.home'),
-    url(r'^clone$', 'kernel.views.clone'),
-    url(r'^pull$', 'kernel.views.pull'),
+    url(r'^clone/(?P<collector_id>[\w]*)$', 'kernel.views.clone'),
+    url(r'^pull/(?P<collector_id>[\w]*)$', 'kernel.views.pull'),
 )
