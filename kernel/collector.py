@@ -30,5 +30,5 @@ class Collector(object):
         pass
 
 def import_all_collectors():
-    for module_name in [name for _, name, _ in pkgutil.walk_packages(collectors.__file__)]:
+    for module_name in [name for _, name, _ in pkgutil.walk_packages(collectors.__path__, collectors.__name__ + '.')]:
         __import__(module_name)
