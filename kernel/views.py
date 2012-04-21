@@ -29,6 +29,6 @@ def clone (request, collector_id):
     initial cloning of the objects
     """
     for c in find_collector(collector_id):
-        c.pull()
+        c.clone()
 
     return render_to_response('clone.html')
