@@ -20,7 +20,7 @@ class WWWChinaHRJobCollector(collector.Collector):
         print "Start cloning from www.chinahr.com..."
         parser = etree.HTMLParser(encoding='gbk')
 
-        pages = range(1, 10)
+        pages = range(1, 20)
         for page in pages:
             headers = { 'Referer': 'http://campus.chinahr.com/Campus/Search/joblist.aspx' }
             request = urllib2.Request(LIST_URL % page, None, headers)
