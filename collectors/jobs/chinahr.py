@@ -2,11 +2,7 @@ import urllib2
 from lxml import etree
 from kernel import collector
 
-#LIST_URL = 'http://searchjob.chinahr.com/Shanghai--searchresult.html?occIDList&occParentIDList=100&myLocIDList=31000&myLocPa#rentIDList=31000&isInterView=1&IsModel=false&from=search&prj=quick&page=2'
-
 LIST_URL = 'http://campus.chinahr.com/Campus/Search/joblist.aspx?Type=Search&KeyWord=&JobLocation=&JobDateTime=&PageIndex=%d&PageSize=20'
-
-#LIST_URL = 'http://searchjob.chinahr.com/GetSearchResult.awp?jtq=onlyrecord&urlKey=b2NjSURMaXN0JTI2b2NjUGFyZW50SURMaXN0JTNEMTAwJTI2bXlMb2NJRExpc3QlM0QzMTAwMCUyNm15TG9jUGFyZW50SURMaXN0JTNEMzEwMDAlMjZpc0ludGVyVmlldyUzRDElMjZJc01vZGVsJTNEZmFsc2UlMjZmcm9tJTNEc2VhcmNoJTI2cHJqJTNEcXVpY2slMjZzaiUzRDElMjZjdXJQYWdlJTNEMiUyNnBhZ2VTaXplJTNEMzAlMjZyZWNvcmRDb3VudCUzRDc0Njc0JTI2b3JkZXJGaWVsZCUzRFJlZnJlc2hEYXRlJTI2b3JkZXIlM0RERVND&ProjectID=3&IsModel=false&jtr=12982899&jtrr='
 
 LIST_XPATH = '//*[@id="jobView"]/tr[position()>1]'
 TITLE_PATH = 'td[2]/a'
