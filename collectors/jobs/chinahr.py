@@ -9,9 +9,6 @@ TITLE_PATH = 'td[2]/a'
 DATE_PATH = 'td[6]/span'
 
 class WWWChinaHRJobCollector(collector.Collector):
-    def pull(self):
-        print "WWWChinaHRJobCollector pulling from topic collector!!"
-
     def clone(self):
         print "Start cloning from www.chinahr.com..."
         parser = etree.HTMLParser(encoding='gbk')

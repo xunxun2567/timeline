@@ -11,11 +11,7 @@ TITLE_PATH = 'td[2]/a'
 DATE_PATH = 'td[6]'
 
 class YingJieShengCollecotr(collector.Collector):
-    def pull(self):
-        print "YingJieSheng pulling from topic collector!!"
-
-    def clone(self):
-        print "Start cloning from www.yingjiesheng.com..."
+    def fetch(self):
         parser = etree.HTMLParser(encoding='gbk')
 
         pages = range(1, 50)

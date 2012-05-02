@@ -1,6 +1,6 @@
 __author__ = 'konglingkai'
 
-from django.core.management.base import BaseCommand, CommandError
+from django.core.management.base import BaseCommand
 from kernel import collector
 
 def find_collector(collector_id):
@@ -15,8 +15,6 @@ def find_collector(collector_id):
     return collectors_found
 
 class Command(BaseCommand):
-    args = '<collector_id>'
-
     def handle(self, *args, **options):
         if len(args) == 0:
             collector_id = ''
@@ -24,4 +22,5 @@ class Command(BaseCommand):
             collector_id = args[0]
 
         for c in find_collector(collector_id):
-            c.clone()
+            print 'start fetching from collector: %s' % c.__class__
+            c.fetch()

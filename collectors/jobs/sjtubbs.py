@@ -10,11 +10,7 @@ TITLE_PATH = 'td[5]/a'
 DATE_PATH = 'td[4]'
 
 class SJTUbbsCollecotr(collector.Collector):
-    def pull(self):
-        print "SJTU bbs pulling from topic collector!!"
-
-    def clone(self):
-        print "Start cloning from bbs.sjtu.edu.cn..."
+    def fetch(self):
         parser = etree.HTMLParser(encoding='gbk')
 
         pages = range(2950, 3000)

@@ -21,12 +21,8 @@ def create_object(sender, title, url, time, **kwargs):
         new_object.save()
 
 class Collector(object):
-    def clone(self):
-        print 'Default implementation of clone, do nothing.'
-        pass
-
-    def pull(self):
-        print 'Default implementation of pull, do nothing.'
+    def fetch(self):
+        print 'Default implementation of fetch, do nothing.'
         pass
 
 def import_all_collectors():

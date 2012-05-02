@@ -11,11 +11,7 @@ TITLE_PATH = 'td[2]/a'
 DATE_PATH = 'td[4]'
 
 class ZhaopinCollecotr(collector.Collector):
-    def pull(self):
-        print "ZhaopinCollecotr pulling from topic collector!!"
-
-    def clone(self):
-        print "Start cloning from www.zhaopin.com..."
+    def fetch(self):
         parser = etree.HTMLParser(encoding='utf8')
 
         pages = range(1, 40)

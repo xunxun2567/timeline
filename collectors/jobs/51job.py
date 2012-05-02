@@ -9,11 +9,7 @@ TITLE_PATH = 'td[2]/a'
 DATE_PATH = 'td[5]/span'
 
 class WWW51JobCollector(collector.Collector):
-    def pull(self):
-        print "WWW51JobCollector pulling from topic collector!!"
-
-    def clone(self):
-        print "Start cloning from www.51job.com..."
+    def fetch(self):
         parser = etree.HTMLParser(encoding='gbk')
 
         pages = range(1, 100)
