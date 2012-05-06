@@ -7,6 +7,7 @@ import urllib2
 import cookielib
 import os
 import time
+import json
 from lxml import etree
 from kernel import collector
 
@@ -46,9 +47,24 @@ class ShenZhouCollector(collector.Collector):
 #        ]
 
     def fetch(self):
-        self.search(5, 4, 6, 449)
+        text = self.opener.open('http://www.zuche.com/city/getCityJson.do_', 'cityname=').read()
+        cities = json.loads(text)
+        for city in cities:
+            city_id = city['code']
+            city_name = city['name']
+            if city_id == '-1': break
+            print '%s: %s' % (city_id, city_name)
+            text = self.opener.open('http://www.zuche.com/department/getDepartmentJson.do_', 'cityId=%s' % city_id).read()
+            stores = json.loads(text)
+            for store in stores:
+                store_id = store['code']
+                store_name = store['name']
+                store_addr = store['address']
+                service_type = store['serviceType']
+                print "    [%s]%s: %s - %s" % (service_type, store_id, store_name, store_addr)
+                self.search(5, 4, city_id, store_id, service_type)
 
-    def search(self, month, day, city_id, store_id):
+    def search(self, month, day, city_id, store_id, service_type):
         text = self.opener.open(FIRST_PAGE_URL).read()
         print 'step 1 succeed...'
         time.sleep(3)
@@ -64,18 +80,18 @@ class ShenZhouCollector(collector.Collector):
                 'fromDate' : '2012-%02d-%02d' % (month, day),
                 'toMinute' : '00',
                 'toDate' : '2012-%02d-%02d' % (month, day),
-                'servicetype' : '6',
-                'fromstoreId' : '%d' % store_id,
+                'servicetype' : '%s' % service_type,
+                'fromstoreId' : '%s' % store_id,
                 'fromHour' : '10',
                 'vehiclebrand' : '0',
-                'tostoreId' : '%d' % store_id,
+                'tostoreId' : '%s' % store_id,
                 'shortColor' : 'shortRent',
                 'fromHourData' : '10',
                 'serviceMode' : '1',
                 'senttype' : '0',
                 'toHour' : '20',
-                'tocityid' : '%d' % city_id,
-                'fromcityid' : '%d' % city_id,
+                'tocityid' : '%s' % city_id,
+                'fromcityid' : '%s' % city_id,
                 'fromTime' : '2012-%02d-%02d 10:00' % (month, day),
                 'leaseterm_month' : '0',
                 'rentDay' : '3',
@@ -98,7 +114,6 @@ class ShenZhouCollector(collector.Collector):
             print 'Step 2 Failed!...'
 
         text = self.opener.open(THIRD_PAGE_URL).read()
-        print text
         print 'Step 3 succeed...'
 
         tree = etree.HTML(text, parser)
