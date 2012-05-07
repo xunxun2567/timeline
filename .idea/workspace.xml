@@ -1,15 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="96441b79-d37d-4f95-afcc-8ce46cb2f836" name="Default" comment="workspace file">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/timeline.iml" afterPath="$PROJECT_DIR$/.idea/timeline.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/dataSources.xml" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
+    <list default="true" id="96441b79-d37d-4f95-afcc-8ce46cb2f836" name="Default" comment="">
+      <change type="DELETED" beforePath="$PROJECT_DIR$/collectors/appstore/shenzhou.py" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/collectors/jobs/51job.py" afterPath="$PROJECT_DIR$/collectors/jobs/51job.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/collectors/jobs/chinahr.py" afterPath="$PROJECT_DIR$/collectors/jobs/chinahr.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/collectors/zuche/shenzhou.py" afterPath="$PROJECT_DIR$/collectors/zuche/shenzhou.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/kernel/collector.py" afterPath="$PROJECT_DIR$/kernel/collector.py" />
     </list>
     <ignored path="timeline.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -36,10 +30,19 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="iphone.py" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="iphone.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/collectors/appstore/iphone.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="39" column="44" selection-start="1268" selection-end="1268" vertical-scroll-proportion="0.6827309">
+            <state line="39" column="44" selection-start="1268" selection-end="1268" vertical-scroll-proportion="-6.181818">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="shenzhou.py" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/collectors/zuche/shenzhou.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="13" column="0" selection-start="193" selection-end="193" vertical-scroll-proportion="0.3761302">
               <folding />
             </state>
           </provider>
@@ -127,11 +130,11 @@
         <option value="$PROJECT_DIR$/kernel/management/commands/fetch.py" />
         <option value="$PROJECT_DIR$/collectors/appstore/__init__.py" />
         <option value="$PROJECT_DIR$/collectors/appstore/shenzhou.py" />
-        <option value="$PROJECT_DIR$/collectors/zuche/shenzhou.py" />
         <option value="$PROJECT_DIR$/collectors/jobs/51job.py" />
         <option value="$PROJECT_DIR$/collectors/jobs/chinahr.py" />
         <option value="$PROJECT_DIR$/kernel/collector.py" />
         <option value="$PROJECT_DIR$/collectors/appstore/iphone.py" />
+        <option value="$PROJECT_DIR$/collectors/zuche/shenzhou.py" />
       </list>
     </option>
   </component>
@@ -709,7 +712,7 @@
     <option name="CHECK_COMMIT_MESSAGE_SPELLING" value="false" />
     <option name="DEFAULT_PATCH_EXTENSION" value="patch" />
     <option name="FORCE_NON_EMPTY_COMMENT" value="false" />
-    <option name="LAST_COMMIT_MESSAGE" value="add the iphone app fetch" />
+    <option name="LAST_COMMIT_MESSAGE" value="workspace file" />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="false" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_FILES_UP_TO_DATE_BEFORE_COMMIT" value="false" />
@@ -727,8 +730,8 @@
     <MESSAGE value="pulling a specific collector" />
     <MESSAGE value="51job collector!" />
     <MESSAGE value="more job collectors" />
-    <MESSAGE value="workspace file" />
     <MESSAGE value="add the iphone app fetch" />
+    <MESSAGE value="workspace file" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -790,13 +793,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/collectors/zuche/shenzhou.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="59" column="44" selection-start="1983" selection-end="1983" vertical-scroll-proportion="0.9113924">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/collectors/jobs/chinahr.py">
       <provider selected="true" editor-type-id="text-editor">
         <state line="30" column="0" selection-start="1231" selection-end="1231" vertical-scroll-proportion="0.0">
@@ -841,7 +837,14 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/collectors/appstore/iphone.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="39" column="44" selection-start="1268" selection-end="1268" vertical-scroll-proportion="0.6827309">
+        <state line="39" column="44" selection-start="1268" selection-end="1268" vertical-scroll-proportion="-6.181818">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/collectors/zuche/shenzhou.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="13" column="0" selection-start="193" selection-end="193" vertical-scroll-proportion="0.3761302">
           <folding />
         </state>
       </provider>
