@@ -12,7 +12,7 @@ class WWW51JobCollector(collector.Collector):
     def fetch(self):
         parser = etree.HTMLParser(encoding='gbk')
 
-        pages = range(1, 100)
+        pages = range(1, 1000)
         for page in pages:
             text = urllib2.urlopen(LIST_URL % page).read(-1)
             tree = etree.HTML(text, parser=parser)

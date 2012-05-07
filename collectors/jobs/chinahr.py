@@ -9,7 +9,7 @@ TITLE_PATH = 'td[2]/a'
 DATE_PATH = 'td[6]/span'
 
 class WWWChinaHRJobCollector(collector.Collector):
-    def clone(self):
+    def fetch(self):
         print "Start cloning from www.chinahr.com..."
         parser = etree.HTMLParser(encoding='gbk')
 

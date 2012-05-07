@@ -11,7 +11,7 @@ import json
 import datetime
 from lxml import etree
 from kernel import collector
-
+'''
 cookie_filename = 'shenzhou.cookies'
 
 FIRST_PAGE_URL = 'http://www.zuche.com'
@@ -23,6 +23,12 @@ THIRD_PAGE_URL = 'http://www.zuche.com/jsp/order/personalOrderSecond.jsp?cid=811
 ITEM_XPATH = '//*/table[@class="order_list_tab"]/tr[position()>1]'
 CAR_NAME = 'td[2]/p'
 CAR_PRICE = 'td[3]/font[1]'
+'''
+
+FIRST_PAGE_URL='http://www.app111.com/all/1-0-0-0-0-0-1-1/'
+SECOND_PAGE_URL='http://www.app111.com/all/1-0-0-0-0-0-1-2/'
+#Price, Comment rank, on-board date, downloadable, category(for game, there are sub-category), sort by, page NO.
+
 
 class ShenZhouCollector(collector.Collector):
 
