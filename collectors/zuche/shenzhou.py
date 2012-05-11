@@ -22,7 +22,7 @@ THIRD_PAGE_URL = 'http://www.zuche.com/jsp/order/personalOrderSecond.jsp?cid=811
 
 ITEM_XPATH = '//*/table[@class="order_list_tab"]/tr[position()>1]'
 CAR_NAME = 'td[2]/p'
-CAR_PRICE = 'td[3]/font[1]'
+CAR_PRICE = 'td[4]/div[1]/font[1]'
 
 class ShenZhouCollector(collector.Collector):
 
@@ -134,6 +134,7 @@ class ShenZhouCollector(collector.Collector):
         result = []
         tree = etree.HTML(text, parser)
         nodes = tree.xpath(ITEM_XPATH)
+
         for node in nodes:
             car_name = node.find(CAR_NAME).text
             car_price = node.find(CAR_PRICE).text

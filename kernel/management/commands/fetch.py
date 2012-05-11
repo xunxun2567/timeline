@@ -25,5 +25,5 @@ class Command(BaseCommand):
             try:
                 print 'start fetching from collector: %s' % c.__class__
                 c.fetch()
-            except:
-                print 'error!'
+            except Exception as ex:
+                print 'error! %s' % ex
