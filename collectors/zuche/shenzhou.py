@@ -24,6 +24,9 @@ ITEM_XPATH = '//*/table[@class="order_list_tab"]/tr[position()>1]'
 CAR_NAME = 'td[2]/p'
 CAR_PRICE = 'td[4]/div[1]/font[1]'
 
+
+
+
 class ShenZhouCollector(collector.Collector):
 
     def __init__(self):
