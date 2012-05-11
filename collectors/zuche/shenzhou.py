@@ -22,8 +22,8 @@ THIRD_PAGE_URL = 'http://www.zuche.com/jsp/order/personalOrderSecond.jsp?cid=811
 
 ITEM_XPATH = '//*/table[@class="order_list_tab"]/tr[position()>1]'
 CAR_NAME = 'td[2]/p'
-CAR_PRICE = 'td[4]/div[1]/font[1]'
-
+CAR_PRICE = 'td[5]/div[1]/font[1]'
+CAR_ALL_PRICES = 'td[5]/div[1]/font[2]/div[1]/ul[2]/li'
 
 
 
@@ -77,10 +77,11 @@ class ShenZhouCollector(collector.Collector):
                     sheet.write(row, 1, city_name)
                     sheet.write(row, 2, store_name)
                     sheet.write(row, 3, car_name)
-                    sheet.write(row, 4, car_price)
+                    #sheet.write(row, 4, car_price)
                     row += 1
-
-                    print '2012-%02d-%02d %s %s %s %s' % (month, day, city_name, store_name, car_name, car_price)
+                    #print '2012-%02d-%02d %s %s %s %s' % (month, day, city_name, store_name, car_name, car_price)
+                break
+            break
         book.save('shenzhou_%02d_%02d.xls' % (month, day))
 
     def search(self, month, day, city_id, store_id, service_type):
@@ -140,7 +141,14 @@ class ShenZhouCollector(collector.Collector):
 
         for node in nodes:
             car_name = node.find(CAR_NAME).text
-            car_price = node.find(CAR_PRICE).text
+            #car_price = node.find(CAR_PRICE).text
+            car_all_prices = node.findall(CAR_ALL_PRICES)
+            car_price = []
+            for car_price_node in car_all_prices:
+                p = car_price_node.find('span')
+                if p != None:
+                    car_price.append(p)
+                    if len(car_price) == 14: break
             result.append((car_name, car_price))
 
         print '%d items found.' % len(nodes)
