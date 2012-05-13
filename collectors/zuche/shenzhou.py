@@ -51,8 +51,9 @@ class ShenZhouCollector(collector.Collector):
 #        ]
 
     def fetch(self):
-        month = datetime.datetime.now().month
-        day = datetime.datetime.now().day
+        today = datetime.datetime.now()
+        month = today.month
+        day = today.day
         book = xlwt.Workbook(encoding='utf-8')
         text = self.opener.open('http://www.zuche.com/city/getCityJson.do_', 'cityname=').read()
         cities = json.loads(text)
@@ -72,16 +73,45 @@ class ShenZhouCollector(collector.Collector):
                 service_type = store['serviceType']
                 print "    [%s]%s: %s - %s" % (service_type, store_id, store_name, store_addr)
                 cars = self.search(month, day, city_id, store_id, service_type)
-                for car_name, car_price in cars:
-                    sheet.write(row, 0, '2012-%02d-%02d' % (month, day))
+                for car_name, car_price, car_prices in cars:
+                    today_string = today.strftime('%Y-%m-%d')
+                    sheet.write(row, 0, today_string)
                     sheet.write(row, 1, city_name)
                     sheet.write(row, 2, store_name)
                     sheet.write(row, 3, car_name)
-                    #sheet.write(row, 4, car_price)
+                    sheet.write(row, 4, car_price)
                     row += 1
-                    #print '2012-%02d-%02d %s %s %s %s' % (month, day, city_name, store_name, car_name, car_price)
-                break
-            break
+                    print '2012-%02d-%02d %s %s %s %s' % (month, day, city_name, store_name, car_name, car_price)
+                    collector.object_found.send(
+                        self,
+                        time=today_string,
+                        url='http://www.shenzhou.com',
+                        title='%s %s %s %s' % (city_name, store_name, car_name, car_price),
+                        check=False,
+                        city=city_name,
+                        mendian=store_name,
+                        chexing=car_name,
+                        check_date=today_string,
+                        book_date=today_string,
+                        price=car_price
+                    )
+
+                    book_date = datetime.datetime.now()
+                    for price in car_prices:
+                        book_date = book_date + datetime.timedelta(days=1)
+                        collector.object_found.send(
+                            self,
+                            time=today_string,
+                            url='http://www.shenzhou.com',
+                            title='%s %s %s %s' % (city_name, store_name, car_name, car_price),
+                            check=False,
+                            city=city_name,
+                            mendian=store_name,
+                            chexing=car_name,
+                            check_date=today_string,
+                            book_date=book_date.strftime('%Y-%m-%d'),
+                            price=price
+                        )
         book.save('shenzhou_%02d_%02d.xls' % (month, day))
 
     def search(self, month, day, city_id, store_id, service_type):
@@ -141,15 +171,15 @@ class ShenZhouCollector(collector.Collector):
 
         for node in nodes:
             car_name = node.find(CAR_NAME).text
-            #car_price = node.find(CAR_PRICE).text
+            car_price = node.find(CAR_PRICE).text
             car_all_prices = node.findall(CAR_ALL_PRICES)
-            car_price = []
+            car_prices = []
             for car_price_node in car_all_prices:
                 p = car_price_node.find('span')
                 if p != None:
-                    car_price.append(p)
-                    if len(car_price) == 14: break
-            result.append((car_name, car_price))
+                    car_prices.append(p.text)
+                    if len(car_prices) == 14: break
+            result.append((car_name, car_price, car_prices))
 
         print '%d items found.' % len(nodes)
         self.cj.save()
