@@ -22,5 +22,8 @@ class Command(BaseCommand):
             collector_id = args[0]
 
         for c in find_collector(collector_id):
-            print 'start fetching from collector: %s' % c.__class__
-            c.fetch()
+            try:
+                print 'start fetching from collector: %s' % c.__class__
+                c.fetch()
+            except Exception as ex:
+                print 'error! %s' % ex

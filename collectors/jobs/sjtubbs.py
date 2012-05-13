@@ -13,7 +13,7 @@ class SJTUbbsCollecotr(collector.Collector):
     def fetch(self):
         parser = etree.HTMLParser(encoding='gbk')
 
-        pages = range(2950, 3000)
+        pages = range(2950, 3050)
         for page in pages:
             text = urllib2.urlopen(LIST_URL % page).read(-1)
             tree = etree.HTML(text, parser=parser)

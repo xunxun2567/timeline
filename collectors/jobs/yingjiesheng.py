@@ -29,3 +29,6 @@ class YingJieShengCollecotr(collector.Collector):
                 time = datetime.datetime.strptime(time, '%Y-%m-%d-')
                 print "%s: %s - %s" % (time, title, url)
                 collector.object_found.send(self, time=time, title=title, url=url)
+
+    def tag(self, object):
+        pass
