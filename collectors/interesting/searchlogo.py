@@ -35,7 +35,7 @@ class GoogleLogoCollector(collector.Collector):
         time = datetime.datetime.now().date().strftime('%Y-%m-%d')
         parser = etree.HTMLParser(encoding='Big5')
         text = urllib2.urlopen('http://www.google.com').read(-1)
-        print text
+        #print text
         tree = etree.HTML(text, parser=parser)
 
         nodes = tree.xpath(LIST_XPATH_G)
