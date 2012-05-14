@@ -8,11 +8,12 @@ import cookielib
 import os
 import xlwt
 import json
+import ftputil
 import datetime
 from lxml import etree
 from kernel import collector
 
-cookie_filename = 'shenzhou.cookies'
+cookie_filename = 'shenzhou/shenzhou.cookies'
 
 FIRST_PAGE_URL = 'http://www.zuche.com'
 FORM_UNIQUE_ID_XPATH = '//*/input[@id="_form_uniq_id"]'
@@ -80,39 +81,19 @@ class ShenZhouCollector(collector.Collector):
                     sheet.write(row, 2, store_name)
                     sheet.write(row, 3, car_name)
                     sheet.write(row, 4, car_price)
+                    future_price = ''
+
+                    for i in range(0, 14):
+                        sheet.write(row, 5 + i, car_prices[i])
+                        future_price += '%s;' % car_prices[i]
+
                     row += 1
                     print '2012-%02d-%02d %s %s %s %s' % (month, day, city_name, store_name, car_name, car_price)
-                    collector.object_found.send(
-                        self,
-                        time=today_string,
-                        url='http://www.shenzhou.com',
-                        title='%s %s %s %s' % (city_name, store_name, car_name, car_price),
-                        check=False,
-                        city=city_name,
-                        mendian=store_name,
-                        chexing=car_name,
-                        check_date=today_string,
-                        book_date=today_string,
-                        price=car_price
-                    )
 
-                    book_date = datetime.datetime.now()
-                    for price in car_prices:
-                        book_date = book_date + datetime.timedelta(days=1)
-                        collector.object_found.send(
-                            self,
-                            time=today_string,
-                            url='http://www.shenzhou.com',
-                            title='%s %s %s %s' % (city_name, store_name, car_name, car_price),
-                            check=False,
-                            city=city_name,
-                            mendian=store_name,
-                            chexing=car_name,
-                            check_date=today_string,
-                            book_date=book_date.strftime('%Y-%m-%d'),
-                            price=price
-                        )
-        book.save('shenzhou_%02d_%02d.xls' % (month, day))
+        file_name = 'shenzhou_2012-%02d_%02d.xls' % (month, day)
+        book.save('shenzhou/' + file_name)
+        upload_to_ftp(file_name)
+        print 'uploaded success!'
 
     def search(self, month, day, city_id, store_id, service_type):
         text = self.opener.open(FIRST_PAGE_URL).read()
@@ -185,3 +166,8 @@ class ShenZhouCollector(collector.Collector):
         self.cj.save()
 
         return result
+
+def upload_to_ftp (file_name):
+    host = ftputil.FTPHost('ftp.ehicar.com', 'spider', 'ToBest')
+    host.upload('shenzhou/' + file_name, file_name, mode='b')
+

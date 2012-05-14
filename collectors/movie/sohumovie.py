@@ -22,7 +22,7 @@ class SohuMovieCollector(collector.Collector):
             title = node.text
             url = node.attrib['href']
             print u"%s: %s - %s" % (time, title, url)
-            #collector.object_found.send(self, time=time, title=title, url=url)
+            collector.object_found.send(self, time=time, title=title, url=url)
 
 class SohuTVCollector(collector.Collector):
     def fetch(self):
@@ -37,4 +37,4 @@ class SohuTVCollector(collector.Collector):
             title = node.text
             url = node.attrib['href']
             print u"%s: %s - %s" % (time, title, url)
-            #collector.object_found.send(self, time=time, title=title, url=url)
+            collector.object_found.send(self, time=time, title=title, url=url)

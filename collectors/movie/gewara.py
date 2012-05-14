@@ -30,7 +30,7 @@ class GewaraCollecotr(collector.Collector):
             timetext = etree.tostring(node2, method='html', encoding='utf-8')
             time = timetext[timetext.index('</em>') + len('</em>'):timetext.index('</p>')]
             print "%s: %s - %s" % (time, title, url)
-            #collector.object_found.send(self, time=time, title=title, url=url)
+            collector.object_found.send(self, time=time, title=title, url=url)
 
 class GewaraAllCollecotr(collector.Collector):
     def fetch(self):
@@ -59,4 +59,4 @@ class GewaraAllCollecotr(collector.Collector):
                             time = timetext[timetext.index('</em>') + len('</em>'):len(timetext)]
                             if time != '':
                                 print "%s: %s - %s" % (time, title, url)
-                                #collector.object_found.send(self, time=time, title=title, url=url)
+                                collector.object_found.send(self, time=time, title=title, url=url)

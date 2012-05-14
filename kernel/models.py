@@ -14,3 +14,5 @@ class Attribute(models.Model):
 class Branch(models.Model):
     name = models.CharField(max_length=20)
     test = models.CharField(max_length=10)
+
+

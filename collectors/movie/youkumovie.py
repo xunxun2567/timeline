@@ -27,7 +27,7 @@ class YoukuMovieCollecotr(collector.Collector):
                 title = node.attrib['title']
                 url = node.attrib['href']
                 print u"%s: %s - %s" % (time, title, url)
-                #collector.object_found.send(self, time=time, title=title, url=url)
+                collector.object_found.send(self, time=time, title=title, url=url)
 
 class YoukuTVCollecotr(collector.Collector):
     def fetch(self):

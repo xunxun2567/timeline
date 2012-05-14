@@ -32,4 +32,4 @@ class BaikeMovieCollecotr(collector.Collector):
                 timetext = node2.text
                 time = timetext[timetext.index(u"字") + 2:len(timetext)]
                 print u"%s: %s - %s" % (time, title, url)
-                #collector.object_found.send(self, time=time, title=title, url=url)
+                collector.object_found.send(self, time=time, title=title, url=url)

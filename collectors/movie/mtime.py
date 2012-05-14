@@ -22,5 +22,5 @@ class MtimeCollecotr(collector.Collector):
             title = node1.attrib['title']
             url = node1.attrib['href']
             print "%s: %s - %s" % (time, title, url)
-            #collector.object_found.send(self, time=time, title=title, url=url)
+            collector.object_found.send(self, time=time, title=title, url=url)
 
