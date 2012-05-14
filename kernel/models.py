@@ -4,7 +4,7 @@ class Object(models.Model):
     time = models.DateTimeField()
     branch = models.CharField(max_length=100)
     title = models.CharField(max_length=500)
-    url = models.URLField(null=True, blank=True)
+    url = models.URLField(null=True, blank=True, max_length=500)
 
 class Attribute(models.Model):
     obj = models.ForeignKey(Object)
