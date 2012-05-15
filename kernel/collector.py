@@ -12,7 +12,6 @@ def create_object(sender, title, url, time, check=True, **kwargs):
     url = url
     time = time
     if not (check and Object.objects.filter(url=url).exists()):
-        print sender.__class__.__name__
         new_object = Object(
             title = title,
             url = url,
