@@ -28,8 +28,9 @@ CATEGORY_XPATH_3RD='//*[@id="atfResults"]/div/div | //*[@id="btfResults"]/div/di
 TITLE_XPATH='div/div/a'
 TIME_XPATH='div/div/span[3]'
 
-PROXY_ENABLE=True
+PROXY_ENABLE=Fasle
 class AmazonCNCollector(collector.Collector):
+
     def fetch(self):
         parser=etree.HTMLParser(encoding='utf-8')
         print 'start fetch amazon.cn'
@@ -117,5 +118,17 @@ class AmazonCNCollector(collector.Collector):
             collector.object_found.send(self,time=time,title=title,url=url,check=True)
             
             
+    def url_save_open(self,url):
+        retry=3
+        while retry:
+            try:
+                link=urllib2.urlopen(url)
+                text=link.read(-1)
+                return text
+            except :
+                retry=retry-1
+                continue
+        print "Page cannot be opened right now, jump to the next page"
+        return None
 
             
