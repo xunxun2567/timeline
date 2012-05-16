@@ -13,7 +13,7 @@ import datetime
 from lxml import etree
 from kernel import collector
 
-cookie_filename = 'shenzhou/shenzhou.cookies'
+cookie_filename = '.data/shenzhou/shenzhou.cookies'
 
 FIRST_PAGE_URL = 'http://www.zuche.com'
 FORM_UNIQUE_ID_XPATH = '//*/input[@id="_form_uniq_id"]'
@@ -83,7 +83,7 @@ class ShenZhouCollector(collector.BaseCollector):
                     sheet.write(row, 4, car_price)
                     future_price = ''
 
-                    for i in range(1, 14):
+                    for i in range(1, 15):
                         sheet.write(row, 4 + i, car_prices[i])
                         future_price += '%s;' % car_prices[i]
 
@@ -91,7 +91,7 @@ class ShenZhouCollector(collector.BaseCollector):
                     print '2012-%02d-%02d %s %s %s %s' % (month, day, city_name, store_name, car_name, car_price)
 
         file_name = 'shenzhou_2012-%02d_%02d.xls' % (month, day)
-        book.save('shenzhou/' + file_name)
+        book.save('.data/shenzhou/' + file_name)
         upload_to_ftp(file_name)
         print 'uploaded success!'
 
@@ -169,5 +169,5 @@ class ShenZhouCollector(collector.BaseCollector):
 
 def upload_to_ftp (file_name):
     host = ftputil.FTPHost('ftp.ehicar.com', 'spider', 'ToBest')
-    host.upload('shenzhou/' + file_name, file_name, mode='b')
+    host.upload('.data/shenzhou/' + file_name, file_name, mode='b')
 
