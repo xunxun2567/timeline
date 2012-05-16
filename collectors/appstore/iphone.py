@@ -20,7 +20,7 @@ LIST_XPATH='//*[@id="main_list_ul"]/li[position()>0]'
 TITLE_PATH='div/div/div/div[2]/a'
 DATE_PATH='div/div/div/div[3]/span[3]'
 
-class IphoneCollector(collector.Collector):
+class IphoneCollector(collector.BaseCollector):
     def fetch(self):
         parser = etree.HTMLParser(encoding='utf-8')
         print 'start fetching from app111.com'

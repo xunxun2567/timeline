@@ -9,7 +9,7 @@ LIST_XPATH = '//*/table/tr[position()>1]'
 TITLE_PATH = 'td[5]/a'
 DATE_PATH = 'td[4]'
 
-class SJTUbbsCollecotr(collector.Collector):
+class SJTUbbsCollecotr(collector.BaseCollector):
     def fetch(self):
         parser = etree.HTMLParser(encoding='gbk')
 

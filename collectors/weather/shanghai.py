@@ -17,7 +17,7 @@ def print_dict(dict):
     for key in dict:
         print u"%s:%s" % (key, dict[key])
 
-class ShanghaiCollecotr(collector.Collector):
+class ShanghaiCollecotr(collector.BaseCollector):
     def fetch(self):
         time = datetime.datetime.now().date().strftime('%Y-%m-%d')
         print "Start cloning from www.weather.com.cn..."

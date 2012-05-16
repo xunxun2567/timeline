@@ -8,7 +8,7 @@ LIST_XPATH = '/html/body/div[2]/div[5]/div[3]/div[2]/table/tr[@class="tr0"]'
 TITLE_PATH = 'td[2]/a'
 DATE_PATH = 'td[5]/span'
 
-class WWW51JobCollector(collector.Collector):
+class WWW51JobCollector(collector.BaseCollector):
     def fetch(self):
         parser = etree.HTMLParser(encoding='gbk')
 

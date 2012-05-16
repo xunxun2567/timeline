@@ -1,12 +1,13 @@
-import django.dispatch
-from django.dispatch import receiver
-from models import Object, Attribute
-import pkgutil
-import collectors
+__author__ = 'konglingkai'
 
-object_found = django.dispatch.Signal(providing_args=["time", "title", "url", "check"])
+import logging, datetime, os
+from django.conf import settings
+from django import dispatch
+from kernel.models import Object, Attribute
 
-@receiver(object_found)
+object_found = dispatch.Signal(providing_args=["time", "title", "url", "check"])
+
+@dispatch.receiver(object_found)
 def create_object(sender, title, url, time, check=True, **kwargs):
     title = title
     url = url
@@ -16,7 +17,7 @@ def create_object(sender, title, url, time, check=True, **kwargs):
             title = title,
             url = url,
             time = time,
-            branch = sender.__class__.__name__,
+            line = sender.__class__.__name__,
         )
         new_object.save()
 
@@ -29,10 +30,34 @@ def create_object(sender, title, url, time, check=True, **kwargs):
             )
             attr.save()
 
-class Collector(object):
-    def fetch(self):
-        print 'Default implementation of fetch, do nothing.'
+class CollectorLogHandler(logging.FileHandler):
+    def __init__(self, collector_class=None):
+        today = datetime.datetime.now().strftime('%Y_%m_%d')
+        directory_name = os.path.join(settings.COLLECTOR_LOGGING_ROOT, today)
+        if not os.path.exists(directory_name):
+            os.mkdir(directory_name)
+        if not collector_class:
+            name = 'daily'
+        else:
+            name = collector_class.__name__
 
-def import_all_collectors():
-    for module_name in [name for _, name, _ in pkgutil.walk_packages(collectors.__path__, collectors.__name__ + '.')]:
-        __import__(module_name)
+        filename = os.path.join(directory_name, name + '.txt')
+        logging.FileHandler.__init__(self, filename, mode='a', encoding='utf-8')
+
+class CollectorException(Exception):
+    pass
+
+class BaseCollector(object):
+    def __init__(self):
+        handler = CollectorLogHandler(self.__class__)
+        handler.setFormatter(logging.Formatter(fmt='[%(levelname)s] %(asctime)s: %(message)s'))
+        console_handler = logging.StreamHandler()
+        logger = logging.Logger(self.__class__.__name__, level=logging.DEBUG)
+        logger.addHandler(console_handler)
+        logger.addHandler(handler)
+        self.logger = logger
+
+    def fetch(self):
+        raise CollectorException('fetch not implemented')
+
+

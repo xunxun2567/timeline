@@ -10,7 +10,7 @@ LIST_XPATH = '//*/form/table/tr[position()>2]'
 TITLE_PATH = 'td[2]/a'
 DATE_PATH = 'td[4]'
 
-class ZhaopinCollecotr(collector.Collector):
+class ZhaopinCollecotr(collector.BaseCollector):
     def fetch(self):
         parser = etree.HTMLParser(encoding='utf8')
 

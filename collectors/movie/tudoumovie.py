@@ -7,7 +7,7 @@ from kernel import collector
 LIST_URL= 'http://movie.tudou.com/albumtop/c22t-1v-1z-1a-1y-1h-1s1p%d.html'
 LIST_XPATH = '//*[@id="mainCol"]/div[2]/div/div/div[2]/h6/a'
 
-class TudouMovieCollecotr(collector.Collector):
+class TudouMovieCollecotr(collector.BaseCollector):
     def fetch(self):
         print "Start fetching from movie.tudou.com..."
         time = datetime.datetime.now().date().strftime('%Y-%m-%d')

@@ -8,7 +8,7 @@ LIST_URL = 'http://theater.mtime.com/China_Shanghai/movie/#hotplay'
 LIST_XPATH = '//*[@id="hotplayRegion"]/li'
 TITLE_PATH = 'div/div/div/div/a[2]'
 
-class MtimeCollecotr(collector.Collector):
+class MtimeCollecotr(collector.BaseCollector):
     def fetch(self):
         print "Start fetching from www.mtime.com..."
         parser = etree.HTMLParser(encoding='utf-8')

@@ -1,29 +1,33 @@
 __author__ = 'konglingkai'
 
-from django.core.management.base import BaseCommand
-from kernel import collector
-
-def find_collector(collector_id):
-    collector.import_all_collectors()
-    all_collectors = collector.Collector.__subclasses__()
-    collectors_found = []
-    for collector_class in all_collectors:
-        if collector_id != "" and collector_class.__name__.lower().find(collector_id.lower()) == -1:
-            continue
-        the_collector = collector_class()
-        collectors_found.append(the_collector)
-    return collectors_found
+from django.core.management import BaseCommand
+import collectors
 
 class Command(BaseCommand):
     def handle(self, *args, **options):
-        if len(args) == 0:
-            collector_id = ''
+        if len(args) > 0:
+            name = args[0]
         else:
-            collector_id = args[0]
+            name = ''
+        all_collectors = collectors.find_collector(name)
+        if len(all_collectors) > 1:
+            print 'Please choose only one collector from below to run.'
+            print
 
-        for c in find_collector(collector_id):
-            try:
-                print 'start fetching from collector: %s' % c.__class__
-                c.fetch()
-            except Exception as ex:
-                print 'error! %s' % ex
+            for collector in all_collectors:
+                    print collector.__class__.__name__
+            return
+
+        if len(all_collectors) == 0:
+            print 'no match collector'
+            all_collectors = collectors.find_collector()
+            print 'Please choose only one collector from below to run.'
+            print
+
+            for collector in all_collectors:
+                print collector.__class__.__name__
+            return
+
+        if len(all_collectors) == 1:
+            all_collectors[0].fetch()
+

@@ -28,7 +28,7 @@ CAR_ALL_PRICES = 'td[5]/div[1]/font[2]/div[1]/ul[2]/li'
 
 
 
-class ShenZhouCollector(collector.Collector):
+class ShenZhouCollector(collector.BaseCollector):
 
     def __init__(self):
         self.cj = cookielib.MozillaCookieJar(cookie_filename)
@@ -83,8 +83,8 @@ class ShenZhouCollector(collector.Collector):
                     sheet.write(row, 4, car_price)
                     future_price = ''
 
-                    for i in range(0, 14):
-                        sheet.write(row, 5 + i, car_prices[i])
+                    for i in range(1, 14):
+                        sheet.write(row, 4 + i, car_prices[i])
                         future_price += '%s;' % car_prices[i]
 
                     row += 1
@@ -159,7 +159,7 @@ class ShenZhouCollector(collector.Collector):
                 p = car_price_node.find('span')
                 if p != None:
                     car_prices.append(p.text)
-                    if len(car_prices) == 14: break
+                    if len(car_prices) == 15: break
             result.append((car_name, car_price, car_prices))
 
         print '%d items found.' % len(nodes)

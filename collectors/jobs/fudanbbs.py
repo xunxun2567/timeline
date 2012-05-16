@@ -10,7 +10,7 @@ ITEM_URL = 'bbs.fudan.edu.cn/bbs/tcon?new=1&bid=431&f=%s'
 
 QUERY_PAGES = 20
 
-class FudanbbsCollecotor(collector.Collector):
+class FudanbbsCollecotor(collector.BaseCollector):
     def fetch(self):
         parser = etree.HTMLParser(encoding='gbk')
 

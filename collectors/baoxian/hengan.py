@@ -19,7 +19,7 @@ CONFIG_PAGE_URL = 'http://fat.hengansl.com:9080/hasl/agent/ip/ProposalDesign/get
 ITEM_PAGE_URL = 'http://fat.hengansl.com:9080/hasl/agent/ip/checkRule.do'
 PROFIT_PAGE_URL = 'http://fat.hengansl.com:9080/hasl/agent/ip/ProposalDesign/getProfitGrid.do'
 
-class HenganCollector(collector.Collector):
+class HenganCollector(collector.BaseCollector):
 
     def __init__(self):
         self.cj = cookielib.MozillaCookieJar(cookie_filename)
@@ -104,10 +104,8 @@ class HenganCollector(collector.Collector):
         }'
         data = { 'insuranceDocument': insuranceDocument }
         text = self.opener.open(ITEM_PAGE_URL, urllib.urlencode(data)).read()
-        #print text
 
         text = self.opener.open(PROFIT_PAGE_URL, urllib.urlencode(data)).read()
-        #print text
 
         data = json.loads(text)
         headers = data['interestDataHeaderList']

@@ -14,7 +14,7 @@ LIST_ALL_XPATH = '//*[@id="ui_layout"]/div/div/ul/li'
 TITLE_ALL_PATH = 'div[2]/div/div/div[2]/div/div/a'
 DATE_ALL_PATH = 'div[2]/div/div/div[2]/div/p/span'
 
-class GewaraCollecotr(collector.Collector):
+class GewaraCollecotr(collector.BaseCollector):
     def fetch(self):
         print "Start fetching from www.gewara.com..."
         parser = etree.HTMLParser(encoding='utf-8')
@@ -32,7 +32,7 @@ class GewaraCollecotr(collector.Collector):
             print "%s: %s - %s" % (time, title, url)
             collector.object_found.send(self, time=time, title=title, url=url)
 
-class GewaraAllCollecotr(collector.Collector):
+class GewaraAllCollecotr(collector.BaseCollector):
     def fetch(self):
         print "Start fetching all movies from www.gewara.com..."
         parser = etree.HTMLParser(encoding='utf-8')

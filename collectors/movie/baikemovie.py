@@ -9,7 +9,7 @@ LIST_XPATH = '//*[@id="content"]/table'
 TITLE_PATH = 'tr/td/font/a'
 DATE_PATH = 'tr/td/font[2]/span'
 
-class BaikeMovieCollecotr(collector.Collector):
+class BaikeMovieCollecotr(collector.BaseCollector):
     def fetch(self):
         print "Start fetching from baike.baidu.com..."
         parser = etree.HTMLParser(encoding='gb18030')

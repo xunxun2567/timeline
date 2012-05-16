@@ -22,10 +22,10 @@ URL_PATH='a'
 TIME_PATH='a/div[2]/div[2]/span[4]'
 
 
-class AndroidCollector(collector.Collector):
+class AndroidCollector(collector.BaseCollector):
     def fetch(self):
         parser = etree.HTMLParser(encoding='utf-8')
-        print 'start fetching from as.baidu.com'
+        self.logger.info('start fetching from as.baidu.com')
 
         text=urllib2.urlopen(MENU_PAGE_URL).read(-1)
         tree=etree.HTML(text,parser=parser)
@@ -40,7 +40,7 @@ class AndroidCollector(collector.Collector):
             url_pos=url_path.find('&')
             url_path=url_path[:url_pos]
             category_paths.append(url_path)
-        print category_paths
+        self.logger.info(category_paths)
         
         #analysis each category, skip category_paths[0] this time
         for category_path in category_paths:

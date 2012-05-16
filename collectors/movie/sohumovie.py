@@ -9,7 +9,7 @@ LIST_XPATH = '/html/body/center/div[5]/dl/dd/ul/li/a'
 
 LIST_URL_TV= 'http://tv.sohu.com/tvall/'
 
-class SohuMovieCollector(collector.Collector):
+class SohuMovieCollector(collector.BaseCollector):
     def fetch(self):
         print "Start fetching movie from tv.sohu.com..."
         time = datetime.datetime.now().date().strftime('%Y-%m-%d')
@@ -24,7 +24,7 @@ class SohuMovieCollector(collector.Collector):
             print u"%s: %s - %s" % (time, title, url)
             collector.object_found.send(self, time=time, title=title, url=url)
 
-class SohuTVCollector(collector.Collector):
+class SohuTVCollector(collector.BaseCollector):
     def fetch(self):
         print "Start fetching tv from tv.sohu.com..."
         time = datetime.datetime.now().date().strftime('%Y-%m-%d')

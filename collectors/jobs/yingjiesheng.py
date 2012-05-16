@@ -10,7 +10,7 @@ LIST_XPATH = '//*/table/tr'
 TITLE_PATH = 'td[2]/a'
 DATE_PATH = 'td[6]'
 
-class YingJieShengCollecotr(collector.Collector):
+class YingJieShengCollecotr(collector.BaseCollector):
     def fetch(self):
         parser = etree.HTMLParser(encoding='gbk')
 

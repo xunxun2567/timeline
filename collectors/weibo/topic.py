@@ -7,7 +7,7 @@ from kernel import collector
 LIST_URL = 'http://news.sina.com.cn/iframe/tblog/js/hottopic/jsondata_new.js'
 #LIST_XPATH = '//*/ul[@id=S_Cont_0]'
 
-class TopicCollector(collector.Collector):
+class TopicCollector(collector.BaseCollector):
     def fetch(self):
         #print "cloning from mimi collector!!"
         print "Start cloning topics from weibo.com..."
