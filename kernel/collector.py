@@ -24,8 +24,8 @@ def create_object(sender, title, url, time, check=True, **kwargs):
         for key in kwargs:
             if key == 'signal': continue
             attr = Attribute(
-                obj = new_object,
-                key = key,
+                object = new_object,
+                name  = key,
                 value = kwargs[key]
             )
             attr.save()
