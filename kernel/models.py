@@ -6,7 +6,11 @@ class Object(models.Model):
     time = models.DateTimeField(auto_now_add=True)
     title = models.CharField(max_length=50)
     url = models.URLField()
-    line = models.CharField(max_length=50)
+    branch = models.CharField(max_length=50)
+    def dump(self):
+        print '%s: %s - %s' % (self.time.strftime('%Y-%m-%d'), self.title, self.url)
+        for attribute in Attribute.objects.filter(object=self):
+            print '    %s: %s' % (attribute.name, attribute.value)
 
 class Attribute(models.Model):
     object = models.ForeignKey(Object)

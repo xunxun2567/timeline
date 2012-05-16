@@ -17,7 +17,7 @@ def create_object(sender, title, url, time, check=True, **kwargs):
             title = title,
             url = url,
             time = time,
-            line = sender.__class__.__name__,
+            branch = sender.__class__.__name__,
         )
         new_object.save()
 
