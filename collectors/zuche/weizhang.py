@@ -115,6 +115,7 @@ query_data = [
     ('DY6883', '9C300153'),
     ('DY7102', '02090081'),
     ('L29899', 'B6140358'),
+    ('LB9831', 'A79777'),
 ]
 
 class WeizhangCollector(collector.BaseCollector):
