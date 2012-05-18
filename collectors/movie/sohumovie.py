@@ -11,7 +11,7 @@ LIST_URL_TV= 'http://tv.sohu.com/tvall/'
 
 class SohuMovieCollector(collector.BaseCollector):
     def fetch(self):
-        print "Start fetching movie from tv.sohu.com..."
+        self.logger.info("Start fetching movie from tv.sohu.com...")
         time = datetime.datetime.now().date().strftime('%Y-%m-%d')
         parser = etree.HTMLParser(encoding='gbk')
         text = urllib2.urlopen(LIST_URL).read(-1)
@@ -21,12 +21,12 @@ class SohuMovieCollector(collector.BaseCollector):
         for node in nodes:
             title = node.text
             url = node.attrib['href']
-            print u"%s: %s - %s" % (time, title, url)
+            self.logger.info(u"%s: %s - %s" % (time, title, url))
             collector.object_found.send(self, time=time, title=title, url=url)
 
 class SohuTVCollector(collector.BaseCollector):
     def fetch(self):
-        print "Start fetching tv from tv.sohu.com..."
+        self.logger.info("Start fetching tv from tv.sohu.com...")
         time = datetime.datetime.now().date().strftime('%Y-%m-%d')
         parser = etree.HTMLParser(encoding='gbk')
         text = urllib2.urlopen(LIST_URL_TV).read(-1)
@@ -36,5 +36,5 @@ class SohuTVCollector(collector.BaseCollector):
         for node in nodes:
             title = node.text
             url = node.attrib['href']
-            print u"%s: %s - %s" % (time, title, url)
+            self.logger(u"%s: %s - %s" % (time, title, url))
             collector.object_found.send(self, time=time, title=title, url=url)

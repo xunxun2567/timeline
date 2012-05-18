@@ -62,7 +62,7 @@ class ShenZhouCollector(collector.BaseCollector):
             city_id = city['code']
             city_name = city['name']
             if city_id == '-1': break
-            print '%s: %s' % (city_id, city_name)
+            self.logger.info('%s: %s' % (city_id, city_name))
             sheet = book.add_sheet(city_name)
             text = self.opener.open('http://www.zuche.com/department/getDepartmentJson.do_', 'cityId=%s' % city_id).read()
             stores = json.loads(text)
@@ -72,7 +72,7 @@ class ShenZhouCollector(collector.BaseCollector):
                 store_name = store['name']
                 store_addr = store['address']
                 service_type = store['serviceType']
-                print "    [%s]%s: %s - %s" % (service_type, store_id, store_name, store_addr)
+                self.logger.info("    [%s]%s: %s - %s" % (service_type, store_id, store_name, store_addr))
                 cars = self.search(month, day, city_id, store_id, service_type)
                 for car_name, car_price, car_prices in cars:
                     today_string = today.strftime('%Y-%m-%d')
@@ -88,16 +88,16 @@ class ShenZhouCollector(collector.BaseCollector):
                         future_price += '%s;' % car_prices[i]
 
                     row += 1
-                    print '2012-%02d-%02d %s %s %s %s' % (month, day, city_name, store_name, car_name, car_price)
+                    self.logger.info('2012-%02d-%02d %s %s %s %s' % (month, day, city_name, store_name, car_name, car_price))
 
         file_name = 'shenzhou_2012-%02d_%02d.xls' % (month, day)
         book.save('.data/shenzhou/' + file_name)
         upload_to_ftp(file_name)
-        print 'uploaded success!'
+        self.logger.info('uploaded success!')
 
     def search(self, month, day, city_id, store_id, service_type):
         text = self.opener.open(FIRST_PAGE_URL).read()
-        print 'step 1 succeed...'
+        self.logger.info('step 1 succeed...')
 
         parser = etree.HTMLParser(encoding='utf8')
         tree = etree.HTML(text, parser)
@@ -139,12 +139,12 @@ class ShenZhouCollector(collector.BaseCollector):
         data = urllib.urlencode(search_params)
         text = self.opener.open(SECOND_PAGE_URL, data).read()
         if text == '[]':
-            print 'Step 2 succeed...'
+            self.logger.info('Step 2 succeed...')
         else:
-            print 'Step 2 Failed!...'
+            self.logger.info('Step 2 Failed!...')
 
         text = self.opener.open(THIRD_PAGE_URL).read()
-        print 'Step 3 succeed...'
+        self.logger.info('Step 3 succeed...')
 
         result = []
         tree = etree.HTML(text, parser)
@@ -162,7 +162,7 @@ class ShenZhouCollector(collector.BaseCollector):
                     if len(car_prices) == 15: break
             result.append((car_name, car_price, car_prices))
 
-        print '%d items found.' % len(nodes)
+        self.logger.info('%d items found.' % len(nodes))
         self.cj.save()
 
         return result

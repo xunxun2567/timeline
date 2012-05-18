@@ -27,8 +27,5 @@ class YingJieShengCollecotr(collector.BaseCollector):
                 #datetime.strptime - can you please work with unicode???
                 time = node2.text.replace(u'年', '-').replace(u'月', '-').replace(u'日', '-')
                 time = datetime.datetime.strptime(time, '%Y-%m-%d-')
-                print "%s: %s - %s" % (time, title, url)
+                self.logger.info("%s: %s - %s" % (time, title, url))
                 collector.object_found.send(self, time=time, title=title, url=url)
-
-    def tag(self, object):
-        pass

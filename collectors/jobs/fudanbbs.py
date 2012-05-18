@@ -33,5 +33,5 @@ class FudanbbsCollecotor(collector.BaseCollector):
                 time = node.attrib['time']
                 time = datetime.datetime.strptime(time, '%Y-%m-%dT%H:%M:%S')
                 url = ITEM_URL % node.attrib['id']
-                print "%s: %s - %s" % (time, title, url)
+                self.logger.info("%s: %s - %s" % (time, title, url))
                 collector.object_found.send(self, time=time, title=title, url=url)

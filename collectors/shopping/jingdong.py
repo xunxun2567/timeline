@@ -12,7 +12,7 @@ PRICE_PATH = 'div[3]/strong'
 
 class JingdongCollecotr(collector.BaseCollector):
     def fetch(self):
-        print "Start fetching data from www.360buy.com..."
+        self.logger.info("Start fetching data from www.360buy.com...")
         parser = etree.HTMLParser(encoding='gbk')
         text = urllib2.urlopen(LIST_URL).read(-1)
         tree = etree.HTML(text, parser=parser)
@@ -28,6 +28,6 @@ class JingdongCollecotr(collector.BaseCollector):
             preview = node2.attrib['src']
             node3 = node.find(PRICE_PATH)
             price = node3.text
-            print "%s: %s - %s" % (time, title, url)
-            print "%s - %s" % (price, preview)
-            #collector.object_found.send(self, time=time, title=title, url=url, preview=preview ,price=price)
+            self.logger.info("%s: %s - %s" % (time, title, url))
+            self.logger.info("%s - %s" % (price, preview))
+            collector.object_found.send(self, time=time, title=title, url=url, preview=preview ,price=price)

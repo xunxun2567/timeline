@@ -16,7 +16,7 @@ DATE_ALL_PATH = 'div[2]/div/div/div[2]/div/p/span'
 
 class GewaraCollecotr(collector.BaseCollector):
     def fetch(self):
-        print "Start fetching from www.gewara.com..."
+        self.logger.info("Start fetching from www.gewara.com...")
         parser = etree.HTMLParser(encoding='utf-8')
         text = urllib2.urlopen(LIST_URL).read(-1)
         tree = etree.HTML(text, parser=parser)
@@ -29,12 +29,12 @@ class GewaraCollecotr(collector.BaseCollector):
             node2 = node.find(DATE_PATH)
             timetext = etree.tostring(node2, method='html', encoding='utf-8')
             time = timetext[timetext.index('</em>') + len('</em>'):timetext.index('</p>')]
-            print "%s: %s - %s" % (time, title, url)
+            self.logger.info("%s: %s - %s" % (time, title, url))
             collector.object_found.send(self, time=time, title=title, url=url)
 
 class GewaraAllCollecotr(collector.BaseCollector):
     def fetch(self):
-        print "Start fetching all movies from www.gewara.com..."
+        self.logger.info("Start fetching all movies from www.gewara.com...")
         parser = etree.HTMLParser(encoding='utf-8')
 
         pages = range(0, 3)
@@ -58,5 +58,5 @@ class GewaraAllCollecotr(collector.BaseCollector):
                             timetext = etree.tostring(node2, method='html', encoding='utf-8')
                             time = timetext[timetext.index('</em>') + len('</em>'):len(timetext)]
                             if time != '':
-                                print "%s: %s - %s" % (time, title, url)
+                                self.logger.info("%s: %s - %s" % (time, title, url))
                                 collector.object_found.send(self, time=time, title=title, url=url)
