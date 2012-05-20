@@ -31,7 +31,7 @@ class BaiduLogoCollector(collector.BaseCollector):
 
 class GoogleLogoCollector(collector.BaseCollector):
     def fetch(self):
-        print "Start cloning logo url from google.com..."
+        self.logger.info("Start cloning logo url from google.com...")
         time = datetime.datetime.now().date().strftime('%Y-%m-%d')
         parser = etree.HTMLParser(encoding='Big5')
         text = urllib2.urlopen('http://www.google.com').read(-1)
@@ -49,5 +49,5 @@ class GoogleLogoCollector(collector.BaseCollector):
                     url = node.attrib['style']
                     url = LIST_URL_G + url[len('background:url(/'):url.index(')')]
         title = node.attrib['title']
-        print "%s: %s - %s" % (time, title, url)
+        self.logger.info("%s: %s - %s" % (time, title, url))
         collector.object_found.send(self, time=time, title=title, url=url)

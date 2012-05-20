@@ -61,7 +61,7 @@ class AndroidCollector(collector.BaseCollector):
                         node3=node.find(TIME_PATH)
                         time=node3.text.strip()
                         time=time[-10:]     #time format
-                        print "%s:%s - %s" %(time,title,url)
+                        self.logger.info("%s:%s - %s" %(time,title,url))
                         collector.object_found.send(self,time=time,title=title,url=url)
                     except:
                         print time

@@ -27,7 +27,7 @@ class SJTUbbsCollecotr(collector.BaseCollector):
                     time = node2.text
                     time = datetime.datetime.strptime(time, '%b  %d %H:%M')
                     time = datetime.datetime(year=2012, month=time.month, day=time.day)
-                    print "%s: %s - %s" % (time, title, url)
+                    self.logger.info("%s: %s - %s" % (time, title, url))
                     collector.object_found.send(self, time=time, title=title, url=url)
                 except:
                     pass

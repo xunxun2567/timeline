@@ -9,12 +9,12 @@ LIST_XPATH = '//*[@id="mainCol"]/div[2]/div/div/div[2]/h6/a'
 
 class TudouMovieCollecotr(collector.BaseCollector):
     def fetch(self):
-        print "Start fetching from movie.tudou.com..."
+        self.logger.info("Start fetching from movie.tudou.com...")
         time = datetime.datetime.now().date().strftime('%Y-%m-%d')
         parser = etree.HTMLParser(encoding='gbk')
         pages = range(1, 31)
         for page in pages:
-            print page
+            self.logger.info(page)
             text = urllib2.urlopen(LIST_URL % page).read(-1)
             #print text
             tree = etree.HTML(text, parser=parser)
@@ -23,5 +23,5 @@ class TudouMovieCollecotr(collector.BaseCollector):
             for node in nodes:
                 title = node.text
                 url = node.attrib['href']
-                print u"%s: %s - %s" % (time, title, url)
+                self.logger.info(u"%s: %s - %s" % (time, title, url))
                 collector.object_found.send(self, time=time, title=title, url=url)

@@ -44,7 +44,7 @@ class HenganCollector(collector.BaseCollector):
 
     def fetch(self):
         text = self.opener.open(FIRST_PAGE_URL).read()
-        print "getting validate code..."
+        self.logger.info("getting validate code...")
         text = self.opener.open(VALIDATE_CODE_URL).read()
         f = open('./code.jpg', 'w+')
         f.write(text)
@@ -57,7 +57,7 @@ class HenganCollector(collector.BaseCollector):
             'j_captcha_response': code
         }
         text = self.opener.open(LOGIN_URL, urllib.urlencode(data)).read()
-        print 'Done.'
+        self.logger.info('Done.')
         text = self.opener.open(CONFIG_PAGE_URL).read()
         #print text
         insuranceDocument = '{\
@@ -110,11 +110,11 @@ class HenganCollector(collector.BaseCollector):
         data = json.loads(text)
         headers = data['interestDataHeaderList']
         for header in headers:
-            print header['value']
+            self.logger.info(header['value'])
 
         data = json.loads(text)['interestDataList']
         for row in data:
-            print '%s: %s' % (row['ia'], row['sumPby'])
+            self.logger.info('%s: %s' % (row['ia'], row['sumPby']))
 
 
 

@@ -23,7 +23,7 @@ DATE_PATH='div/div/div/div[3]/span[3]'
 class IphoneCollector(collector.BaseCollector):
     def fetch(self):
         parser = etree.HTMLParser(encoding='utf-8')
-        print 'start fetching from app111.com'
+        self.logger.info('start fetching from app111.com')
 
         text=urllib2.urlopen(FIRST_PAGE_URL).read(-1)
         tree=etree.HTML(text,parser=parser)
@@ -48,7 +48,7 @@ class IphoneCollector(collector.BaseCollector):
             pages=range(1,int(page_num)+1)
             for page in pages:
                 cur_path=category_path[:-1]+str(page)
-                print cur_path
+                self.logger.info(cur_path)
                 text=urllib2.urlopen(cur_path).read(-1)
                 tree=etree.HTML(text,parser=parser)
                 nodes=tree.xpath(LIST_XPATH)
@@ -64,10 +64,10 @@ class IphoneCollector(collector.BaseCollector):
                         time=time.replace(u'年','-')
                         time=time.replace(u'月','-')
                         time=time.replace(u'日','')
-                        print "%s:%s - %s" %(time,title,url)
+                        self.logger.info("%s:%s - %s" %(time,title,url))
                         collector.object_found.send(self,time=time,title=title,url=url)
                     except:
-                        print time
+                        self.logger.info(time)
             
         '''
         #pages=range(1,1000)
