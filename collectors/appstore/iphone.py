@@ -20,8 +20,16 @@ LIST_XPATH='//*[@id="main_list_ul"]/li[position()>0]'
 TITLE_PATH='div/div/div/div[2]/a'
 DATE_PATH='div/div/div/div[3]/span[3]'
 
+INCREMENT=3 #DEFINE THE PAGE TO BE VIEWED FOR INCREMENT
+
 class IphoneCollector(collector.Collector):
+    def init(self):
+        self.fetch_info(INIT=True)
+
     def fetch(self):
+        self.fetch_into()
+
+    def fetch_info(self, INIT=False):
         parser = etree.HTMLParser(encoding='utf-8')
         print 'start fetching from app111.com'
 
@@ -45,7 +53,11 @@ class IphoneCollector(collector.Collector):
             page_num=page_num_path[0].text.strip()[2:]      #get the total page number in that category
 
             #set the page range: page_num for the first time, and less for increment
-            pages=range(1,int(page_num)+1)
+            if INIT:
+                pages=range(1,int(page_num)+1)
+            else:
+                pages=range(1,INCREMENT+1)
+
             for page in pages:
                 cur_path=category_path[:-1]+str(page)
                 print cur_path

@@ -3,6 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="96441b79-d37d-4f95-afcc-8ce46cb2f836" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/collectors/appstore/amazon.py" afterPath="$PROJECT_DIR$/collectors/appstore/amazon.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/collectors/appstore/android.py" afterPath="$PROJECT_DIR$/collectors/appstore/android.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/collectors/appstore/iphone.py" afterPath="$PROJECT_DIR$/collectors/appstore/iphone.py" />
     </list>
     <ignored path="timeline.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -32,7 +34,7 @@
       <file leaf-file-name="iphone.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/collectors/appstore/iphone.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="19" column="33" selection-start="722" selection-end="722" vertical-scroll-proportion="0.0">
+            <state line="58" column="41" selection-start="2021" selection-end="2021" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -41,7 +43,7 @@
       <file leaf-file-name="android.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/collectors/appstore/android.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="63" column="60" selection-start="2364" selection-end="2400" vertical-scroll-proportion="0.0">
+            <state line="31" column="34" selection-start="999" selection-end="999" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -50,7 +52,7 @@
       <file leaf-file-name="amazon.py" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/collectors/appstore/amazon.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="33" column="0" selection-start="1322" selection-end="1322" vertical-scroll-proportion="0.019417476">
+            <state line="149" column="12" selection-start="5415" selection-end="5415" vertical-scroll-proportion="0.8731836">
               <folding />
             </state>
           </provider>
@@ -121,9 +123,9 @@
         <option value="$PROJECT_DIR$/collectors/jobs/chinahr.py" />
         <option value="$PROJECT_DIR$/kernel/collector.py" />
         <option value="$PROJECT_DIR$/collectors/zuche/shenzhou.py" />
-        <option value="$PROJECT_DIR$/collectors/appstore/iphone.py" />
-        <option value="$PROJECT_DIR$/collectors/appstore/android.py" />
         <option value="$PROJECT_DIR$/kernel/models.py" />
+        <option value="$PROJECT_DIR$/collectors/appstore/android.py" />
+        <option value="$PROJECT_DIR$/collectors/appstore/iphone.py" />
         <option value="$PROJECT_DIR$/collectors/appstore/amazon.py" />
       </list>
     </option>
@@ -158,28 +160,6 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="Scope">
-        <subPane subId="Project Files">
-          <PATH>
-            <PATH_ELEMENT USER_OBJECT="Root">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-          </PATH>
-        </subPane>
-        <subPane subId="All">
-          <PATH>
-            <PATH_ELEMENT USER_OBJECT="Root">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="timeline">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-          </PATH>
-        </subPane>
-      </pane>
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -408,6 +388,28 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scope">
+        <subPane subId="Project Files">
+          <PATH>
+            <PATH_ELEMENT USER_OBJECT="Root">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+        <subPane subId="All">
+          <PATH>
+            <PATH_ELEMENT USER_OBJECT="Root">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="timeline">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
       <pane id="Favorites" />
     </panes>
   </component>
@@ -415,14 +417,14 @@
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth0" value="110" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth1" value="119" />
     <property name="options.splitter.main.proportions" value="0.3" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth0" value="115" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder1" value="1" />
     <property name="recentsLimit" value="5" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder1" value="1" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth0" value="115" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder0" value="0" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../vlicensing" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth2" value="122" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth3" value="917" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth3" value="915" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth3" value="917" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth2" value="121" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth1" value="117" />
     <property name="Database.TableEditor.Splitter" value="0.8999999" />
@@ -437,8 +439,8 @@
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder2" value="2" />
     <property name="options.lastSelected" value="editor.preferences.appearance" />
     <property name="DefaultHtmlFileTemplate" value="Html5" />
-    <property name="dynamic.classpath" value="false" />
     <property name="options.searchVisible" value="true" />
+    <property name="dynamic.classpath" value="false" />
   </component>
   <component name="PyConsoleOptionsProvider">
     <option name="myPythonConsoleState">
@@ -465,13 +467,29 @@
       <recent name="$PROJECT_DIR$/kernel/templates" />
     </key>
   </component>
-  <component name="RunManager" selected="Django server.timeline">
+  <component name="RunManager" selected="Python.amazon">
     <configuration default="false" name="Default" type="com.intellij.persistence.run.ConsoleRunConfigurationType" factoryName="Query Language Console" temporary="true">
       <option name="VM_PARAMETERS" value="" />
       <option name="USER_CFG_CLASS" />
       <option name="CONTEXT_PROVIDER" />
       <RunnerSettings RunnerId="Basic" />
       <ConfigurationWrapper RunnerId="Basic" />
+      <method />
+    </configuration>
+    <configuration default="false" name="amazon" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/collectors/appstore" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <module name="timeline" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/collectors/appstore/amazon.py" />
+      <option name="PARAMETERS" value="" />
+      <RunnerSettings RunnerId="PythonRunner" />
+      <ConfigurationWrapper RunnerId="PythonRunner" />
       <method />
     </configuration>
     <configuration default="true" type="DjangoTestsConfigurationType" factoryName="Django tests">
@@ -598,9 +616,10 @@
       <ConfigurationWrapper RunnerId="PythonRunner" />
       <method />
     </configuration>
-    <list size="2">
+    <list size="3">
       <item index="0" class="java.lang.String" itemvalue="Django server.timeline" />
       <item index="1" class="java.lang.String" itemvalue="Query Language Console.Default" />
+      <item index="2" class="java.lang.String" itemvalue="Python.amazon" />
     </list>
   </component>
   <component name="ShelveChangesManager" show_recycled="false" />
@@ -684,16 +703,16 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="468" y="29" width="1332" height="984" extended-state="0" />
-    <editor active="false" />
+    <frame x="-3" y="22" width="1676" height="905" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.19870968" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32903227" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.1875" sideWeight="0.21806452" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Dependency Viewer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.18654434" sideWeight="0.68370605" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.18615752" sideWeight="0.6843403" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32903227" sideWeight="0.0" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.31629393" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" x="24" y="284" width="1232" height="231" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.31565967" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" x="24" y="284" width="1232" height="231" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32794458" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Database Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32903227" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Data Sources" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.18587662" sideWeight="0.80129033" order="3" side_tool="false" content_ui="tabs" />
@@ -701,8 +720,8 @@
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32794458" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.1875" sideWeight="0.21806452" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32903227" sideWeight="0.5" order="12" side_tool="true" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.1875" sideWeight="0.21806452" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32903227" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
@@ -807,16 +826,6 @@
         <state line="24" column="10" selection-start="951" selection-end="951" vertical-scroll-proportion="0.42718446" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/collectors/appstore/iphone.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="19" column="33" selection-start="722" selection-end="722" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/collectors/appstore/android.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="63" column="60" selection-start="2364" selection-end="2400" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/kernel/models.py">
       <provider selected="true" editor-type-id="text-editor">
         <state line="15" column="42" selection-start="518" selection-end="518" vertical-scroll-proportion="0.0" />
@@ -824,9 +833,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/kernel/collector.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="22" column="0" selection-start="612" selection-end="612" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
+        <state line="22" column="0" selection-start="612" selection-end="612" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/collectors/jobs/chinahr.py">
@@ -839,9 +846,23 @@
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/collectors/appstore/android.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="31" column="34" selection-start="999" selection-end="999" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/collectors/appstore/iphone.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="58" column="41" selection-start="2021" selection-end="2021" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/collectors/appstore/amazon.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="33" column="0" selection-start="1322" selection-end="1322" vertical-scroll-proportion="0.019417476">
+        <state line="149" column="12" selection-start="5415" selection-end="5415" vertical-scroll-proportion="0.8731836">
           <folding />
         </state>
       </provider>
