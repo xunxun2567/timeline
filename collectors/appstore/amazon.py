@@ -45,17 +45,18 @@ def url_save_open(url):
     print "Page cannot be opened right now, jump to the next page"
     return None
 
-class AmazonCNCollector(collector.Collector):
+class AmazonCNCollector(collector.BaseCollector):
     def fetch(self):
+        print 'start fetch amazon.cn'
         self.fetch_info(INCREMENT)
 
     def init(self):
+        print 'start fetch amazon.cn for the 1st time'
         self.fetch_info(INIT_PAGES)
     
     def fetch_info(self,PAGE_NUM):
         MAX_PAGE=PAGE_NUM
         parser=etree.HTMLParser(encoding='utf-8')
-        print 'start fetch amazon.cn'
 
         #install proxy opener
         if PROXY_ENABLE:
@@ -101,11 +102,6 @@ class AmazonCNCollector(collector.Collector):
                 except :
                     categories_url_3rd=[]
 
-            '''
-            print nodes
-            print categories_url_3rd
-            print len(categories_url_3rd)
-            '''
             #parse the page info
             if categories_url_3rd==[]:
                 print "Cannot get the URL list..."
@@ -141,7 +137,7 @@ class AmazonCNCollector(collector.Collector):
                             time=time+'-01'
                         except:
                             continue
-                        #print "%s:%s - %s" %(time,title,url)
+                        self.logger.info("%s:%s - %s" %(time,title,url))
                         collector.object_found.send(self,time=time,title=title,url=url,check=True)
 
             

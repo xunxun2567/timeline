@@ -10,7 +10,7 @@ LIST_XPATH = '//*/form/table/tr[position()>2]'
 TITLE_PATH = 'td[2]/a'
 DATE_PATH = 'td[4]'
 
-class ZhaopinCollecotr(collector.Collector):
+class ZhaopinCollecotr(collector.BaseCollector):
     def fetch(self):
         parser = etree.HTMLParser(encoding='utf8')
 
@@ -26,5 +26,5 @@ class ZhaopinCollecotr(collector.Collector):
                 url = node1.attrib['href']
                 node2 = node.find(DATE_PATH)
                 time = datetime.datetime.strptime(node2.text, "%y-%m-%d")
-                print "%s: %s - %s" % (time, title, url)
+                self.logger.info("%s: %s - %s" % (time, title, url))
                 collector.object_found.send(self, time=time, title=title, url=url)

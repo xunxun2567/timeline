@@ -1,11 +1,5 @@
-#coding=utf-8
-from django.shortcuts import  render_to_response
-from django.http import HttpResponse
-import json
-import os
-from datetime import datetime
-from django.core.servers.basehttp import FileWrapper
+from django.shortcuts import render_to_response
+# Create your views here.
 
-def home (request):
-    return render_to_response('home.html')
-
+def one_day(request):
+    return render_to_response('one_day.html')

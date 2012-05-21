@@ -8,7 +8,7 @@ LIST_XPATH = '/html/body/div[2]/div[5]/div[3]/div[2]/table/tr[@class="tr0"]'
 TITLE_PATH = 'td[2]/a'
 DATE_PATH = 'td[5]/span'
 
-class WWW51JobCollector(collector.Collector):
+class WWW51JobCollector(collector.BaseCollector):
     def fetch(self):
         parser = etree.HTMLParser(encoding='gbk')
 
@@ -23,5 +23,5 @@ class WWW51JobCollector(collector.Collector):
                 url = node1.attrib['href']
                 node2 = node.find(DATE_PATH)
                 time = node2.text
-                print "%s: %s - %s" % (time, title, url)
+                self.logger.info("%s: %s - %s" % (time, title, url))
                 collector.object_found.send(self, time=time, title=title, url=url)

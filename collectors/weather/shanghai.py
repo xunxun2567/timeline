@@ -17,10 +17,10 @@ def print_dict(dict):
     for key in dict:
         print u"%s:%s" % (key, dict[key])
 
-class ShanghaiCollecotr(collector.Collector):
+class ShanghaiCollecotr(collector.BaseCollector):
     def fetch(self):
         time = datetime.datetime.now().date().strftime('%Y-%m-%d')
-        print "Start cloning from www.weather.com.cn..."
+        self.logger.info("Start cloning from www.weather.com.cn...")
         parser = etree.HTMLParser(encoding='utf-8')
         text = urllib2.urlopen(LIST_URL).read(-1)
         tree = etree.HTML(text, parser=parser)
@@ -33,7 +33,7 @@ class ShanghaiCollecotr(collector.Collector):
             dateDay = dateDay[0:dateDay.index(u'日')]
             curDay = datetime.datetime.now().date().day
             if int(dateDay) != int(curDay):
-                print u"错误！天气预报日期%s日不是当前日期%s日" % (dateDay, curDay)
+                self.logger.error(u"错误！天气预报日期%s日不是当前日期%s日" % (dateDay, curDay))
                 return
             node2 = node.find(DAYWEA_PATH)
             #print node2.text
@@ -43,8 +43,8 @@ class ShanghaiCollecotr(collector.Collector):
             if int(curHour) >= 18 or int(curHour) <= 8 :
                 weaDict[u"夜间"] = node2.text
                 weaDict[u"低温"] = node3.text
-                print u"现在时间%s:00,已超过18:00，只能取夜间天气" % curHour
-                print time
+                self.logger.info(u"现在时间%s:00,已超过18:00，只能取夜间天气" % curHour)
+                self.logger.info(time)
                 print_dict(weaDict)
                 return
             weaDict[u"白天"] = node2.text
@@ -54,7 +54,7 @@ class ShanghaiCollecotr(collector.Collector):
             node5 = node.find(LOWTEMP_PATH)
             weaDict[u"低温"] = node5.text
 
-            print time
+            self.logger.info(time)
             print_dict(weaDict)
             #collector.object_found.send(self, time=time, title=title, url=url)
 """

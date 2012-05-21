@@ -8,9 +8,9 @@ LIST_XPATH = '//*[@id="jobView"]/tr[position()>1]'
 TITLE_PATH = 'td[2]/a'
 DATE_PATH = 'td[6]/span'
 
-class WWWChinaHRJobCollector(collector.Collector):
+class WWWChinaHRJobCollector(collector.BaseCollector):
     def fetch(self):
-        print "Start cloning from www.chinahr.com..."
+        self.logger.info("Start cloning from www.chinahr.com...")
         parser = etree.HTMLParser(encoding='gbk')
 
         pages = range(1, 20)
@@ -26,5 +26,5 @@ class WWWChinaHRJobCollector(collector.Collector):
                 url = node1.attrib['href']
                 node2 = node.find(DATE_PATH)
                 time = node2.text.strip()
-                print "%s: %s - %s" % (time, title, url)
+                self.logger.info("%s: %s - %s" % (time, title, url))
                 collector.object_found.send(self, time=time, title=title, url=url)

@@ -24,7 +24,7 @@ TIME_PATH='a/div[2]/div[2]/span[4]'
 INCREMENT=3 #DEFINE THE PAGE TO BE VIEWED FOR INCREMENT
 INIT_PAGES=50
 
-class AndroidCollector(collector.Collector):
+class AndroidCollector(collector.BaseCollector):
     def fetch(self):
         self.fetch_info(INCREMENT)
 
@@ -34,7 +34,7 @@ class AndroidCollector(collector.Collector):
     def fetch_info(self,PAGE_NUM):
         MAX_PAGE=PAGE_NUM
         parser = etree.HTMLParser(encoding='utf-8')
-        print 'start fetching from as.baidu.com'
+        self.logger.info('start fetching from as.baidu.com')
 
         text=urllib2.urlopen(MENU_PAGE_URL).read(-1)
         tree=etree.HTML(text,parser=parser)
@@ -49,7 +49,7 @@ class AndroidCollector(collector.Collector):
             url_pos=url_path.find('&')
             url_path=url_path[:url_pos]
             category_paths.append(url_path)
-        print category_paths
+        self.logger.info(category_paths)
         
         #analysis each category, skip category_paths[0] this time
         for category_path in category_paths:
@@ -70,10 +70,10 @@ class AndroidCollector(collector.Collector):
                         node3=node.find(TIME_PATH)
                         time=node3.text.strip()
                         time=time[-10:]     #time format
-                        print "%s:%s - %s" %(time,title,url)
+                        self.logger.info("%s:%s - %s" %(time,title,url))
                         collector.object_found.send(self,time=time,title=title,url=url)
                     except:
-                        print time
+                        self.logger.info(time)
 
             
         '''
