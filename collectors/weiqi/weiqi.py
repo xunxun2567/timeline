@@ -16,6 +16,9 @@ URL_ITEM_PATTERN = 'http://weiqi.sports.tom.com/php/listqipu%s_%02d.html'
 FETCHED_YEARS = ('', '2011', '2010', '2009', '2008', '2007', '2006', '2005', '2000')
 
 class WeiqiCollector(collector.BaseCollector):
+    object_fields=['time', 'title', 'url']
+    attribute_fields=['info', 'contest', 'qipu']
+
     def fetch(self):
         for year in FETCHED_YEARS:
             url = URL_PATTERN % year

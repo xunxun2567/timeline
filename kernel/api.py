@@ -1,4 +1,6 @@
-__author__ = 'admin'
+#.-.coding=utf8
+
+__author__ = 'wangguodong'
 
 import collectors
 from django.conf import settings
@@ -57,7 +59,7 @@ def json_response(request, collector):
         json_dic['code'] = 6
         json_dic['message'] = e.message
 
-    return HttpResponse(json.dumps(json_dic), 'application/json')
+    return HttpResponse(json.dumps(json_dic, ensure_ascii=False), 'application/json')
 
 def _check_api_key(key):
     if not key == settings.TIMELINE_API_KEY:

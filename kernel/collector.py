@@ -1,6 +1,7 @@
 __author__ = 'konglingkai'
 
 import logging, datetime, os
+import datetime
 from django.conf import settings
 from django import dispatch
 from kernel.models import Object, Attribute
@@ -51,6 +52,9 @@ class CollectorException(Exception):
     pass
 
 class BaseCollector(object):
+    object_fields=['time', 'title', 'url']
+    attribute_fields=[]
+
     def __init__(self):
         handler = CollectorLogHandler(self.__class__)
         handler.setFormatter(logging.Formatter(fmt='[%(levelname)s] %(asctime)s: %(message)s'))
@@ -66,25 +70,27 @@ class BaseCollector(object):
     def data(self, request, begin_time, end_time):
         controller_name = self.__class__.__name__
         objects = Object.objects.filter(branch=controller_name, time__gte=begin_time, time__lte=end_time).order_by('-time')[:50]
-        print str(objects)
 
         results_list = []
         for a_object in objects.values():
             a_object_dic = {}
-            attributes = Attribute.objects.filter(object_id=a_object['id'])
             for k,v in a_object.iteritems():
-                a_object_dic[str(k)] = v
-                print str(v)
+                print str(k)
+                if k in self.object_fields:
+                    if isinstance(v, datetime.datetime):
+                        a_object_dic[str(k)] = v.strftime('%Y-%m-%d %H:%M:%S')
+                    else:
+                        a_object_dic[str(k)] = v
 
+            attributes = Attribute.objects.filter(object_id=a_object['id'])
             a_attribute_dic = {}
             for a_attribute in attributes:
-                a_attribute_dic[a_attribute.name] = str(a_attribute.value)
+                if a_attribute.name in self.attribute_fields:
+                    a_attribute_dic[a_attribute.name] = a_attribute.value
             a_object_dic['attributes'] = a_attribute_dic
 
             results_list.append(a_object_dic)
 
         return results_list
-#        raise CollectorException('api not implemented')
-#        return data
 
 
