@@ -3,7 +3,7 @@ __author__ = 'konglingkai'
 from django.db import models
 
 class Object(models.Model):
-    time = models.DateTimeField(auto_now_add=True)
+    time = models.DateTimeField()
     title = models.CharField(max_length=50)
     url = models.URLField()
     branch = models.CharField(max_length=50)
@@ -15,4 +15,4 @@ class Object(models.Model):
 class Attribute(models.Model):
     object = models.ForeignKey(Object)
     name = models.CharField(max_length=100)
-    value = models.CharField(max_length=200)
+    value = models.CharField(max_length=1500)

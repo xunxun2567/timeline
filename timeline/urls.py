@@ -5,7 +5,8 @@ from django.conf.urls import patterns, include, url
 # admin.autodiscover()
 
 urlpatterns = patterns('',
-    url(r'^$', 'kernel.views.one_day')
+    url(r'^$', 'kernel.views.one_day'),
+    url(r'^api/(?P<collector>\w+)/timeline.json', 'kernel.api.json_response'),
     # Examples:
     # url(r'^$', 'timeline.views.home', name='home'),
     # url(r'^timeline/', include('timeline.foo.urls')),
