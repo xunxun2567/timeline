@@ -15,4 +15,4 @@ class Object(models.Model):
 class Attribute(models.Model):
     object = models.ForeignKey(Object)
     name = models.CharField(max_length=100)
-    value = models.CharField(max_length=200)
+    value = models.CharField(max_length=1500)

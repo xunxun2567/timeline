@@ -33,7 +33,6 @@ class WeiqiCollector(collector.BaseCollector):
 
     def update(self):
         print "updating objects from weiqi.sports.tom.com..."
-
         return self.fetch()
 
 
