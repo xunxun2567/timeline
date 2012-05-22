@@ -53,7 +53,8 @@ class WeiqiCollector(collector.BaseCollector):
                 if url_node is None: continue
 
                 new_url = urlparse.urljoin(url, url_node.attrib['href']).replace('../', '')
-                text = urllib2.urlopen(new_url).read(-1)
+                text = urllib2.urlopen(new_url).read(-1).decode('gbk')
+
                 time = datetime.datetime.strptime(time_node.text, "%Y-%m-%d")
                 title = title_node.text
                 title_parts = title.split(' ')
