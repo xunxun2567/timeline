@@ -12,6 +12,9 @@ def create_object(sender, title, url, time, check=True, **kwargs):
     title = title
     url = url
     time = time
+    if time is None or len(str(time)) < 1:
+        time = datetime.datetime.now()
+
     if not (check and Object.objects.filter(url=url).exists()):
         new_object = Object(
             title = title,
@@ -60,7 +63,28 @@ class BaseCollector(object):
     def fetch(self):
         raise CollectorException('fetch not implemented')
 
-    def api(self, request, begin_time, end_time):
-        raise CollectorException('api not implemented')
+    def data(self, request, begin_time, end_time):
+        controller_name = self.__class__.__name__
+        objects = Object.objects.filter(branch=controller_name, time__gte=begin_time, time__lte=end_time).order_by('-time')[:50]
+        print str(objects)
+
+        results_list = []
+        for a_object in objects.values():
+            a_object_dic = {}
+            attributes = Attribute.objects.filter(object_id=a_object['id'])
+            for k,v in a_object.iteritems():
+                a_object_dic[str(k)] = v
+                print str(v)
+
+            a_attribute_dic = {}
+            for a_attribute in attributes:
+                a_attribute_dic[a_attribute.name] = str(a_attribute.value)
+            a_object_dic['attributes'] = a_attribute_dic
+
+            results_list.append(a_object_dic)
+
+        return results_list
+#        raise CollectorException('api not implemented')
+#        return data
 
 
