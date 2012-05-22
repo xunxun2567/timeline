@@ -60,4 +60,7 @@ class BaseCollector(object):
     def fetch(self):
         raise CollectorException('fetch not implemented')
 
+    def api(self, request, begin_time, end_time):
+        raise CollectorException('api not implemented')
+
 
