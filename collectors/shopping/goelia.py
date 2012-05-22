@@ -5,38 +5,33 @@ import urlparse
 from lxml import etree
 from kernel import collector
 
-LIST_URL = 'http://www.c-and-a.com.cn/cn/fashion/product/index.php?page=%d&gender=%s'
-XPATH = '/html/body/div[3]/div[2]/div[4]/div/div[1]'
+LIST_URL1 = 'http://mall.goelia.com.cn/index.php/gallery-index---1--%d-82-grid.html?'
+LIST_URL2 = 'scontent=b%2C_ANY__t%2C1_p%2C0'
+XPATH = '//*[@id="gallery-grild-list"]/ul/li'
 
-class CACollector(collector.BaseCollector):
+class GoeliaCollector(collector.BaseCollector):
     def fetch(self):
-        self.logger.info('C&A started.')
-        self.getData('female', 14)
-        self.getData('male',12)
-        self.getData('kids',6)
-        self.getData('accessory',5)
-
-    def getData(self, category, pages):
+        self.logger.info('Goelia started.')
         parser = etree .HTMLParser(encoding='utf-8')
-        self.logger.info('Category: %s:' % category)
-        for page in range(1,pages):
+
+        for page in range(1,9):
             self.logger.info('Page: %d:' % page)
-            url = LIST_URL %(page, category)
+            url = LIST_URL1 % page + LIST_URL2
             text = urllib2.urlopen(url).read()
             tree = etree.HTML(text, parser=parser)
 
             time = datetime.datetime.now().strftime('%Y-%m-%d')
             nodes = tree.xpath(XPATH)
             for node in nodes:
-                sub_node = node.find('a[1]/img')
+                sub_node = node.find('div[@class="goodpic"]/a/img')
                 #print etree.tostring(node, method='html', encoding='utf-8')
-                image_url = urlparse.urljoin(url,sub_node.attrib['src'])
+                image_url = sub_node.attrib['src']
 
-                sub_node = node.find('div[1]/div[1]/a')
+                sub_node = node.find('div[@class="goods-main"]/div[1]/h6/a')
                 title = sub_node.text
                 ourl = urlparse.urljoin(url,sub_node.attrib['href'])
 
-                sub_node = node.find('div[1]/div[2]')
+                sub_node = node.find('div[@class="goods-main"]/div[2]/ul/li[1]/em[@class="sell-price"]')
                 price = sub_node.text.strip()
 
                 self.logger.info('%s(%s) - %s @ %s' % (title, price, ourl, image_url))

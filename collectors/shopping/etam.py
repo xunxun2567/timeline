@@ -5,38 +5,34 @@ import urlparse
 from lxml import etree
 from kernel import collector
 
-LIST_URL = 'http://www.c-and-a.com.cn/cn/fashion/product/index.php?page=%d&gender=%s'
-XPATH = '/html/body/div[3]/div[2]/div[4]/div/div[1]'
+LIST_URL = 'http://www.etam.com.cn/chanpin/productsfilter/new/?___SID=U&ajax=true&cus_color=&cus_price=&id=2&limit=32&order=&p=%d&rand=48414'
+XPATH = '//*/div[@class="category-products"]/div/ul/li'
 
-class CACollector(collector.BaseCollector):
+class EtamCollector(collector.BaseCollector):
     def fetch(self):
-        self.logger.info('C&A started.')
-        self.getData('female', 14)
-        self.getData('male',12)
-        self.getData('kids',6)
-        self.getData('accessory',5)
-
-    def getData(self, category, pages):
+        self.logger.info('Etam started.')
         parser = etree .HTMLParser(encoding='utf-8')
-        self.logger.info('Category: %s:' % category)
-        for page in range(1,pages):
+
+        for page in range(1,6):
             self.logger.info('Page: %d:' % page)
-            url = LIST_URL %(page, category)
+            url = LIST_URL % page
             text = urllib2.urlopen(url).read()
             tree = etree.HTML(text, parser=parser)
 
             time = datetime.datetime.now().strftime('%Y-%m-%d')
             nodes = tree.xpath(XPATH)
             for node in nodes:
-                sub_node = node.find('a[1]/img')
+                sub_node = node.find('div[1]/a[2]/img')
                 #print etree.tostring(node, method='html', encoding='utf-8')
-                image_url = urlparse.urljoin(url,sub_node.attrib['src'])
+                image_url = sub_node.attrib['src']
 
-                sub_node = node.find('div[1]/div[1]/a')
+                sub_node = node.find('h3/a')
                 title = sub_node.text
-                ourl = urlparse.urljoin(url,sub_node.attrib['href'])
+                ourl = sub_node.attrib['href']
 
-                sub_node = node.find('div[1]/div[2]')
+                sub_node = node.find('div[2]/p[1]/span[@class="price"]')
+                if sub_node is None:
+                    sub_node = node.find('div[2]/span/span[@class="price"]')
                 price = sub_node.text.strip()
 
                 self.logger.info('%s(%s) - %s @ %s' % (title, price, ourl, image_url))

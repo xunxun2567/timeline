@@ -38,15 +38,15 @@ class ITCollector(collector.BaseCollector):
                 price = sub_node.find('span').text + price_num
 
                 sub_node = node.find('tr[1]/td[1]/div[1]/div[@class="photo"]/a')
-                url = urlparse.urljoin(url,sub_node.attrib['href'])
+                ourl = urlparse.urljoin(url,sub_node.attrib['href'])
 
                 sub_node = sub_node.find('img')
                 image_url = urlparse.urljoin(url,sub_node.attrib['src'])
 
-                self.logger.info('%s(%s) - %s @ %s' % (title, price, url, image_url))
+                self.logger.info('%s(%s) - %s @ %s' % (title, price, ourl, image_url))
                 collector.object_found.send(
                 self,
-                time = time, title = title, url = url,
+                time = time, title = title, url = ourl,
                 image_url = image_url,
                 price = price,
                 )

@@ -5,12 +5,12 @@ import urlparse
 from lxml import etree
 from kernel import collector
 
-LIST_URL = 'http://www.uniqlo.cn/search.htm?search=y&scid=%s&viewType=grid&orderType=_hotsell&pageNum=%d#anchor'
+LIST_URL = 'http://www.zara.com/webapp/wcs/stores/servlet/category/cn/en/zara-S%s%s'
 XPATH = '//*/ul[@class="shop-list"]/li/div[1]'
 
-class UniqloCollector(collector.BaseCollector):
+class ZaraCollector(collector.BaseCollector):
     def fetch(self):
-        self.logger.info('Uniqlo started.')
+        self.logger.info('Zara` started.')
         self.getData('138188203', 3)    #男装
         self.getData('138188209',3)     #女装
         self.getData('411880248',3)     #孩童
