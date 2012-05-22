@@ -109,4 +109,4 @@ LOGGING = {
 
 COLLECTOR_LOGGING_ROOT = './.log/'
 
-TIMELINE_API_KEY = iamthekey
+TIMELINE_API_KEY = 'iamthekey'
