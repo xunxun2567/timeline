@@ -4,6 +4,7 @@ import collectors
 from django.conf import settings
 from datetime import datetime
 from django.http import HttpResponse
+import json
 
 class APIError(Exception):
     _ERROR_MESSAGE_DICT = {
@@ -24,8 +25,8 @@ class APIError(Exception):
     def __str__(self):
         return self.message
 
-# http://localhost:8000/api/collector/timeline.json?key=111111&begin_date=20000101112233444&end_date=20160101112233444
-def json(request, collector):
+# http://localhost:8000/api/weiqi/timeline.json?key=iamthekey&begin_date=20000101112233&end_date=20160101112233
+def json_response(request, collector):
     json_dic = {}
     try:
         all_collectors = collectors.find_collector(collector)
@@ -51,7 +52,7 @@ def json(request, collector):
         json_dic['code'] = 6
         json_dic['message'] = e.message
 
-    return HttpResponse(json.dumps(json_dic, 'application/json'))
+    return HttpResponse(json.dumps(json_dic), 'application/json')
 
 def _check_api_key(key):
     if not key == settings.TIMELINE_API_KEY:
