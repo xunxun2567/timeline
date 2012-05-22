@@ -12,6 +12,7 @@ class APIError(Exception):
         3: "TimeFormatError: Timestamp should be YYYYMMDDHHMMSS",
         4: "TimeValueError: Timestamp should be logical.",
         5: "Result is EMPTY!",
+        6: "API SPECIFIC ERROR MESSAGE",
         9: "Failure! Please contact administrator.",
     }
     code = 0
@@ -44,6 +45,9 @@ def json(request, collector):
         json_dic['results'] = results
     except APIError, e:
         json_dic['code'] = e.code
+        json_dic['message'] = e.message
+    except Exception, e:
+        json_dic['code'] = 6
         json_dic['message'] = e.message
 
     return HttpResponse(json.dumps(json_dic, 'application/json'))
