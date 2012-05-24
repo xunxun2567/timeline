@@ -2,6 +2,7 @@ __author__ = 'konglingkai'
 
 import logging, datetime, os
 import datetime
+from django.utils import timezone
 from django.conf import settings
 from django import dispatch
 from kernel.models import Object, Attribute
@@ -21,6 +22,7 @@ def create_object(sender, title, url, time, check=True, **kwargs):
             title = title,
             url = url,
             time = time,
+            added_time=timezone.now(),       #add the current time
             branch = sender.__class__.__name__,
         )
         new_object.save()
