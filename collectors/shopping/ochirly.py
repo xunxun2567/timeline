@@ -21,10 +21,6 @@ class OchirlyCollector(collector.BaseCollector):
             text = urllib2.urlopen(url).read()
             tree = etree.HTML(text, parser=parser)
 
-            data = {
-                'a': '123',
-            }
-
             time = datetime.datetime.now().strftime('%Y-%m-%d')
             nodes = tree.xpath(XPATH)
             for node in nodes:
@@ -38,6 +34,7 @@ class OchirlyCollector(collector.BaseCollector):
 
                 sub_node = node.find('div[2]/div[1]/span[@class="price bold"]')
                 price = sub_node.text.strip()
+                price = price[0:price.index('.')]
 
                 self.logger.info('%s(%s) - %s @ %s' % (title, price, ourl, image_url))
                 collector.object_found.send(
@@ -45,4 +42,5 @@ class OchirlyCollector(collector.BaseCollector):
                 time = time, title = title, url = ourl,
                 image_url = image_url,
                 price = price,
+                leibie = u'女装'
                 )

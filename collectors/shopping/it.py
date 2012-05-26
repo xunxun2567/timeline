@@ -8,13 +8,13 @@ from kernel import collector
 LIST_URL = 'http://www.itezhop.com/ezhop/ezhop/product/productlist.do?gender=%s&status=NEW_IN&pageno=%d&'
 XPATH = '//*/div[@class="productList"]/ul/li/table/tbody'
 
-class ITCollector(collector.BaseCollector):
+class ITitCollector(collector.BaseCollector):
     def fetch(self):
         self.logger.info('I.T. started.')
-        self.getData('F',7)
-        self.getData('M',9)
+        self.getData('F',7, u'女装')
+        self.getData('M',9, u'男装')
 
-    def getData(self, category, pages):
+    def getData(self, category, pages, leibie):
         parser = etree .HTMLParser(encoding='utf-8')
         self.logger.info('Category: %s:' % category)
         for page in range(1,pages):
@@ -49,4 +49,5 @@ class ITCollector(collector.BaseCollector):
                 time = time, title = title, url = ourl,
                 image_url = image_url,
                 price = price,
+                leibie = leibie
                 )

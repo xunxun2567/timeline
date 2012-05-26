@@ -34,6 +34,7 @@ class EtamCollector(collector.BaseCollector):
                 if sub_node is None:
                     sub_node = node.find('div[2]/span/span[@class="price"]')
                 price = sub_node.text.strip()
+                price = price[0:price.index('.')]
 
                 self.logger.info('%s(%s) - %s @ %s' % (title, price, ourl, image_url))
                 collector.object_found.send(
@@ -41,4 +42,5 @@ class EtamCollector(collector.BaseCollector):
                 time = time, title = title, url = ourl,
                 image_url = image_url,
                 price = price,
+                category = 'lady'
                 )

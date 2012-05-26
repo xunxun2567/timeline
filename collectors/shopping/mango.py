@@ -41,5 +41,7 @@ class MangoCollector(collector.BaseCollector):
                 self,
                 time = time, title = title, url = url,
                 image_url = image_url,
+                image_url2 = image_url_backup,
                 price = price,
+                leibie = u'女装'
                 )

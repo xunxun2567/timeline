@@ -13,17 +13,18 @@ XPATH = '//*[@id="layout"]/div[@class="oneByOne gwt_product"]'
 class CoachCollector(collector.BaseCollector):
     def fetch(self):
         self.logger.info('Coach started.')
-        self.getData('coachnews_all_new')   #女包
-       # self.getData('men_newarrivals')     #男包
+        self.getData('coachnews_all_new', u'女包')   #女包
+        self.getData('men_newarrivals', u'男包')     #男包
 
     def getPrice(self, pid):
         url = PRODUCT_URL + pid
         text = urllib2.urlopen(url).read()
         data = json.loads(text,encoding='utf-8')
         info = data["products"]
-        return info[0]["unitPrice"]
+        price = info[0]["unitPrice"].__str__()
+        return price[0:price.index('.')]
 
-    def getData(self, category):
+    def getData(self, category, leibie):
         parser = etree .HTMLParser(encoding='utf-8')
         self.logger.info('Category: %s:' % category)
         url = LIST_URL % category
@@ -42,13 +43,14 @@ class CoachCollector(collector.BaseCollector):
             title = sub_node.attrib['alt']
             productinfo = sub_node.attrib['onmouseover']
             productID = productinfo[productinfo.index("('")+2:productinfo.index("',")]
-            price = self.getPrice(productID)
+            price = u'￥' + self.getPrice(productID)
 
-            #self.logger.info('%s(%s) - %s @ %s' % (title, price, ourl, image_url))
-            self.logger.info('%s(%s) - %s' % (title, price, image_url))
+            #self.logger.info('%s(%s) - %s @ %s - %s' % (title, price, ourl, image_url))
+            self.logger.info('%s(%s) - %s-%s' % (title, price, image_url, leibie))
             collector.object_found.send(
             self,
             time = time, title = title, url = image_url,
             image_url = image_url,
-            #price = price,
+            price = price,
+            leibie = leibie
             )

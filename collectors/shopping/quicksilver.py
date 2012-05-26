@@ -5,15 +5,15 @@ import urlparse
 from lxml import etree
 from kernel import collector
 
-LIST_URL = 'http://www.roxy.cn/cn/tw/productlist.php?pid=%s&sid=%d'
-XPATH = '/html/body/div/div/table[2]/tr/td/table/tr/td/table/tr/td/table'
+LIST_URL = 'http://www.quiksilver.cn/cn/tw/productlist.php?pid=%s&sid=%d'
+XPATH = '/html/body/div[2]/div/div[2]/div/div[2]/table/tr/td[2]/table/tr/td/table/tr/td/table'
 
-class RoxyCollector(collector.BaseCollector):
+class QuicksilverCollector(collector.BaseCollector):
     def fetch(self):
-        self.logger.info('Roxy started.')
-        self.getData('10',89,95, u'女装')     #女服装
-        self.getData('3',84,89, u'女式配件')  #女配件
-        self.getData('21',81,84, u'女装')     #女裤子
+        self.logger.info('Quicksilver started.')
+        self.getData('10',76,81, u'男装')     #男服装
+        self.getData('3',72,76, u'男式配件')      #男配件
+        self.getData('19',69,72, u'男装')     #男裤子
 
     def getData(self, category, start,end, leibie):
         parser = etree .HTMLParser(encoding='utf-8')

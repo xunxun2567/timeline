@@ -35,19 +35,28 @@ class Forever21Collector(collector.BaseCollector):
             title = sub_node.text
             url = urlparse.urljoin(LIST_URL,sub_node.attrib['href'])
 
-            if 'men' in url:
-                print "it belongs to men category"
+            leibie = u'女装'
+            leibieText = url[url.index('Category=') + len('Category='): url.index('&ProductId=')]
+            #print leibieText
+            if 'acc'  in leibieText or 'shoes' in leibieText:
+                if 'men' in url:
+                    leibie = u'男式配件'
+                else:
+                    leibie = u'女式配件'
+            elif 'men' in url:
+                leibie = u'男装'
             elif 'girls' in url or 'boys' in url:
-                print "it belongs to kids category"
+                leibie = u'童装'
             sub_node = node.find('tr[@valign="top"]/td/font[@class="price"]')
             price = sub_node.text
             if price is None:
-                price = sub_node.find('font').text
+                price = u'￥' + sub_node.find('font').text
 
-            self.logger.info('%s(%s) - %s @ %s' % (title, price, url, image_url))
+            self.logger.info('%s(%s) - %s @ %s - %s' % (title, price, url, image_url, leibie))
             collector.object_found.send(
             self,
             time = time, title = title, url = url,
             image_url = image_url,
             price = price,
+            leibie = leibie
             )

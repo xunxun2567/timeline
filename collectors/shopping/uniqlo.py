@@ -11,12 +11,12 @@ XPATH = '//*/ul[@class="shop-list"]/li/div[1]'
 class UniqloCollector(collector.BaseCollector):
     def fetch(self):
         self.logger.info('Uniqlo started.')
-        self.getData('138188203', 3)    #男装
-        self.getData('138188209',3)     #女装
-        self.getData('411880248',3)     #孩童
-        self.getData('237719246',3)     #婴儿
+        self.getData('138188203', 3, u'男装')    #男装
+        self.getData('138188209',3, u'女装')     #女装
+        self.getData('411880248',3,u'童装')     #孩童
+        self.getData('237719246',3, u'婴儿')     #婴儿
 
-    def getData(self, category, pages):
+    def getData(self, category, pages, leibie):
         parser = etree .HTMLParser(encoding='gbk')
         self.logger.info('Category: %s:' % category)
         for page in range(1,pages):
@@ -41,6 +41,7 @@ class UniqloCollector(collector.BaseCollector):
 
                 sub_node = node.find('div[3]/strong')
                 price = sub_node.text.strip()
+                price =   u'￥' + price[0: price.index('.')]
 
                 self.logger.info('%s(%s) - %s @ %s' % (title, price, url, image_url))
                 collector.object_found.send(
@@ -48,4 +49,5 @@ class UniqloCollector(collector.BaseCollector):
                 time = time, title = title, url = url,
                 image_url = image_url,
                 price = price,
+                leibie = leibie
                 )
