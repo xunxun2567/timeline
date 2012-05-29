@@ -1,4 +1,3 @@
-import urllib2
 import datetime
 from lxml import etree
 from kernel import collector

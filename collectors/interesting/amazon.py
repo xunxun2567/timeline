@@ -3,6 +3,7 @@ import urllib2
 import datetime
 from lxml import etree
 from kernel import collector
+from kernel.collector import object_found
 
 LIST_URL = 'http://www.amazon.cn/%E4%BF%83%E9%94%80-%E7%89%B9%E4%BB%B7/b/ref=cs_top_nav_gb27/475-8883503-9352433?ie=UTF8&node=42450071'
 LIST_XPATH = '//*[@id="hot"]/div[1]/div[2]/ul/li'
