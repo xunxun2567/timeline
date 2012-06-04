@@ -7,11 +7,15 @@ import pkgutil
 
 from kernel.collector import BaseCollector
 
-def find_collector(name=''):
+def find_collector(name='', package=''):
     collectors = [_class() for _class in BaseCollector.__subclasses__()]
     match = []
     for collector in collectors:
-        if collector.__class__.__name__.lower().find(name.lower()) != -1:
-            match.append(collector)
+        if package:
+            if collector.__class__.__module__.find('.' + package + '.') != -1:
+                match.append(collector)
+        else:
+            if collector.__class__.__name__.lower().find(name.lower()) != -1:
+                match.append(collector)
 
     return match;

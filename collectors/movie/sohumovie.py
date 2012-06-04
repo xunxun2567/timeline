@@ -36,5 +36,5 @@ class SohuTVCollector(collector.BaseCollector):
         for node in nodes:
             title = node.text
             url = node.attrib['href']
-            self.logger(u"%s: %s - %s" % (time, title, url))
+            self.logger.info(u"%s: %s - %s" % (time, title, url))
             collector.object_found.send(self, time=time, title=title, url=url)

@@ -1,4 +1,5 @@
 import datetime
+import urllib2
 from lxml import etree
 from kernel import collector
 
@@ -43,7 +44,7 @@ class GoogleLogoCollector(collector.BaseCollector):
             for attr in node.attrib:
                 if attr == 'src':
                     url = node.attrib['src']
-                    url = LIST_URL_G + url[1:len(url)-1]
+                    url = LIST_URL_G + url[1:len(url)]
                 if attr == 'style':
                     url = node.attrib['style']
                     url = LIST_URL_G + url[len('background:url(/'):url.index(')')]

@@ -8,6 +8,7 @@ import cookielib
 import os
 import json
 from lxml import etree
+import xlwt
 from kernel import collector
 
 cookie_filename = 'hengan.cookies'
@@ -31,6 +32,7 @@ class HenganCollector(collector.BaseCollector):
             urllib2.HTTPSHandler(debuglevel=0),
             urllib2.HTTPCookieProcessor(self.cj)
         )
+        collector.BaseCollector.__init__(self)
     #        self.opener.addheaders = [
     #            ('User-agent', 'Mozilla/5.0'),
     #            ('X-Requested-With', 'XMLHTTPRequest'),
@@ -41,6 +43,55 @@ class HenganCollector(collector.BaseCollector):
     #            ('Connection', 'keep-alive'),
     #            ('Accept', 'application/json, text/javascript, */*')
     #        ]
+
+    def get_data(self, product, sex, age, period, pay_period):
+        insuranceDocument = '{"insurant":{\
+            "sex":"%s",\
+            "hospitalRiskLevel":"1",\
+            "age":%d,\
+            "birthday":"%d-06-04",\
+            "name":"老王",\
+            "pregnant":false,\
+            "accidentRiskLevel":"1",\
+            "jobCode":"AA01",\
+            "isPolicyHolder":true,\
+            "lifeRiskLevel ":"标准费率",\
+            "jobName":"职员、公务员"},\
+        "policyHolder":{\
+            "sex":"%s",\
+            "age":%d,\
+            "birthday":"%d-06-04",\
+            "name":"老王",\
+            "cid":null},\
+        "sumPremium":false,\
+        "success":true,\
+        "insuranceArray":[{\
+            "payPeriodType":"year",\
+            "drawType_text":null,\
+            "riskView":100000,\
+            "children":[],\
+            "leaf":true,\
+            "kind":"main",\
+            "drawAge":null,\
+            "risk":100000,\
+            "payState":null,\
+            "policyPeriodYear":50,\
+            "insureId":"%s",\
+            "policyPeriod":"%s",\
+            "payPeriod":"%s",\
+            "drawType":null,\
+            "drawAge_text":null}],\
+        "recordSelectArray":[]}'
+
+        doc = insuranceDocument % (sex, age, 2012 - age, sex, age, 2012 - age, product, period, pay_period)
+
+        data = { 'insuranceDocument': doc }
+        text = self.opener.open(ITEM_PAGE_URL, urllib.urlencode(data)).read()
+        text = self.opener.open(PROFIT_PAGE_URL, urllib.urlencode(data)).read()
+
+        data = json.loads(text)
+
+        return data;
 
     def fetch(self):
         text = self.opener.open(FIRST_PAGE_URL).read()
@@ -59,62 +110,86 @@ class HenganCollector(collector.BaseCollector):
         text = self.opener.open(LOGIN_URL, urllib.urlencode(data)).read()
         self.logger.info('Done.')
         text = self.opener.open(CONFIG_PAGE_URL).read()
-        #print text
-        insuranceDocument = '{\
-            "policyHolder":{\
-                "cid":null,\
-                "name":"老张",\
-                "sex":"F",\
-                "age":30,\
-                "birthday":"1982-05-09"\
-            },\
-            "insurant":{\
-                "name":"老张",\
-                "sex":"F",\
-                "pregnant":false,\
-                "age":30,\
-                "birthday":"1982-05-09",\
-                "isPolicyHolder":true,\
-                "jobCode":"AA01",\
-                "jobName":"职员、公务员",\
-                "lifeRiskLevel ":"标准费率",\
-                "accidentRiskLevel":"1",\
-                "hospitalRiskLevel":"1"\
-            },\
-            "insuranceArray":[{\
-                "insureId":"38",\
-                "code":"CAD",\
-                "name":"CAD-珍爱相随A款",\
-                "kind":"main",\
-                "premium":null,\
-                "risk":"20000",\
-                "riskView":"20000",\
-                "risk_unit":"元",\
-                "policyPeriod":"@99",\
-                "policyPeriod_text":"至99周岁",\
-                "policyPeriodYear":69,\
-                "payPeriod":"5",\
-                "payPeriod_text":"5年缴",\
-                "payPeriodType":"year",\
-                "payPeriodType_text":"年缴",\
-                "drawAge":null,\
-                "drawAge_text":null,\
-                "children":[]\
-            }]\
-        }'
-        data = { 'insuranceDocument': insuranceDocument }
-        text = self.opener.open(ITEM_PAGE_URL, urllib.urlencode(data)).read()
 
-        text = self.opener.open(PROFIT_PAGE_URL, urllib.urlencode(data)).read()
+        tree = etree.XML(text)
+        nodes = tree.xpath('/insurList/insur')
+        config = {}
+        book = xlwt.Workbook(encoding='utf-8')
+        sheet = book.add_sheet('产品列表')
+        row = 0
+        for node in nodes:
+            id = node.attrib['id']
+            config[id] = {}
+            sub_1 = node.findall('attribute[@id="policyPeriod"]/item')
+            config[id]['period'] = [sub_node.attrib['id'] for sub_node in sub_1]
+            sub_2 = node.findall('attribute[@id="payPeriod"]/item')
+            config[id]['payPeriod'] = [sub_node.attrib['id'] for sub_node in sub_2]
+            sub_3 = node.find('property[@id="name"]')
+            config[id]['name'] = sub_3.text
+            sub_4 = node.find('property[@id="code"]')
+            config[id]['code'] = sub_4.text
+            sheet.write(row, 0, id)
+            sheet.write(row, 1, config[id]['code'])
+            sheet.write(row, 2, config[id]['name'])
+            sheet.write(row, 3, str(config[id]['period']))
+            sheet.write(row, 4, str(config[id]['payPeriod']))
+            row += 1
+        book.save('.data/hengan/products.xls')
 
-        data = json.loads(text)
-        headers = data['interestDataHeaderList']
-        for header in headers:
-            self.logger.info(header['value'])
+        product = 49
+        sex = 'M'
+        age = 30
+        period = '@80'
+        pay_period = 5
 
-        data = json.loads(text)['interestDataList']
-        for row in data:
-            self.logger.info('%s: %s' % (row['ia'], row['sumPby']))
+        data = self.get_data(product, sex, age, period, pay_period);
+
+        pby = data['interestDataList'][0]['pby']
+
+        print product, sex, age, period, pay_period, pby
+
+        return
+
+
+        for product in config:
+            product_dict = config[product]
+            for sex in ('M', 'F'):
+                for period in product_dict['period']:
+                    for pay_period in product_dict['payPeriod']:
+                        print product, sex, period, pay_period
+                        book = xlwt.Workbook(encoding='utf-8')
+                        for age in range(1, 80):
+                            try:
+                                print age
+                                sheet = book.add_sheet('%d' % age)
+                                data = self.get_data(product, sex, age, period, pay_period);
+
+                                header_dict = {}
+                                headers = data['interestDataHeaderList']
+                                col = 0
+                                for header in headers:
+                                    header_dict[header['id']] = (col, header['value'])
+                                    sheet.write(0, col, header['value'])
+                                    col += 1
+
+                                row = 1
+                                for data_row in data['interestDataList']:
+                                    for key in data_row:
+                                        col,_ = header_dict[key]
+                                        sheet.write(row, col, data_row[key])
+                                    row += 1
+                            except:
+                                print 'fail..'
+
+                        book.save('.data/hengan/%s_%s_%s_%s.xls' % (product, sex, period, pay_period));
+
+#        headers = data['interestDataHeaderList']
+#        for header in headers:
+#            self.logger.info(header['value'])
+#
+#        data = json.loads(text)['interestDataList']
+#        for row in data:
+#            self.logger.info('%s: %s' % (row['ia'], row['sumPby']))
 
 
 

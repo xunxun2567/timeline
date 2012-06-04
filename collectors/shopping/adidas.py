@@ -35,7 +35,7 @@ class AdidasCollector(collector.BaseCollector):
 
                 sub_node = node.find('div[3]/a')
                 #print etree.tostring(node, method='html', encoding='utf-8')
-                ourl = urlparse.urljoin(url,sub_node.attrib['href'])
+                url = urlparse.urljoin(url,sub_node.attrib['href'])
                 title = sub_node.text
 
                 price = '0'

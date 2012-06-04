@@ -40,6 +40,7 @@ class ShenZhouCollector(collector.BaseCollector):
             urllib2.HTTPSHandler(debuglevel=0),
             urllib2.HTTPCookieProcessor(self.cj)
         )
+        collector.BaseCollector.__init__(self)
 #        self.opener.addheaders = [
 #            ('User-agent', 'Mozilla/5.0'),
 #            ('X-Requested-With', 'XMLHTTPRequest'),
