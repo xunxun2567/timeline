@@ -8,7 +8,7 @@ urlpatterns = patterns('',
     url(r'^$', 'kernel.views.one_day'),
     url(r'^kernel/',include('kernel.urls')),
     url(r'^api/(?P<collector>\w+)/timeline.json', 'kernel.api.json_response'),
-
+    url(r'^api/$','kernel.views.json_api'),
     # Examples:
     # url(r'^$', 'timeline.views.home', name='home'),
     # url(r'^timeline/', include('timeline.foo.urls')),

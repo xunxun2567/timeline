@@ -12,8 +12,13 @@ def find_collector(name='', package=''):
     match = []
     for collector in collectors:
         if package:
-            if collector.__class__.__module__.find('.' + package + '.') != -1:
-                match.append(collector)
+            if not name:
+                if collector.__class__.__module__.find('.' + package + '.') != -1:
+                    match.append(collector)
+            else:
+                if collector.__class__.__module__.find('.'+package+'.')!=-1 \
+                    and collector.__class__.__name__.lower().find(name.lower()) != -1:
+                    match.append(collector)
         else:
             if collector.__class__.__name__.lower().find(name.lower()) != -1:
                 match.append(collector)

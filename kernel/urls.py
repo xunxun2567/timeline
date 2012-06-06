@@ -8,6 +8,7 @@ urlpatterns = patterns('kernel.views',
     url(r'^$', 'one_day'),
     url(r'^(?P<collector_name>\w+)/$','view_today'),
     url(r'^(?P<collector_name>\w+)/(?P<time_filter>\d*)/$','view_someday'),
+    
    
 
 )
